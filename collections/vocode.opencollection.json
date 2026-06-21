@@ -1,0 +1,427 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Vocode Hosted API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Calls",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an outbound call",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/calls/create",
+            "body": {
+              "type": "json",
+              "data": "{\"from_number\": \"<string>\", \"to_number\": \"<string>\", \"agent\": \"<uuid>\", \"on_no_human_answer\": \"continue\", \"run_do_not_call_detection\": false, \"hipaa_compliant\": false, \"context\": {}, \"telephony_params\": {}}"
+            }
+          },
+          "docs": "Create an outbound call"
+        },
+        {
+          "info": {
+            "name": "Get a call",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/calls?id="
+          },
+          "docs": "Get a call"
+        },
+        {
+          "info": {
+            "name": "List calls",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/calls/list?page=&size=&sort_column=&sort_desc="
+          },
+          "docs": "List calls"
+        },
+        {
+          "info": {
+            "name": "End a call",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/calls/end?id="
+          },
+          "docs": "End a call"
+        },
+        {
+          "info": {
+            "name": "Get a call recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/calls/recording?id="
+          },
+          "docs": "Get a call recording"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Agents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/agents/create",
+            "body": {
+              "type": "json",
+              "data": "{\"name\": \"<string>\", \"prompt\": \"<string>\", \"language\": \"en\", \"voice\": \"<uuid>\", \"initial_message\": \"<string>\", \"actions\": []}"
+            }
+          },
+          "docs": "Create an agent"
+        },
+        {
+          "info": {
+            "name": "Get an agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/agents?id="
+          },
+          "docs": "Get an agent"
+        },
+        {
+          "info": {
+            "name": "List agents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/agents/list?page=&size="
+          },
+          "docs": "List agents"
+        },
+        {
+          "info": {
+            "name": "Update an agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/agents/update?id=",
+            "body": {
+              "type": "json",
+              "data": "{\"name\": \"<string>\", \"prompt\": \"<string>\"}"
+            }
+          },
+          "docs": "Update an agent"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Numbers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Buy a phone number",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/numbers/buy",
+            "body": {
+              "type": "json",
+              "data": "{\"area_code\": \"<string>\", \"telephony_provider\": \"twilio\"}"
+            }
+          },
+          "docs": "Buy a phone number"
+        },
+        {
+          "info": {
+            "name": "Get a phone number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/numbers?phone_number="
+          },
+          "docs": "Get a phone number"
+        },
+        {
+          "info": {
+            "name": "List phone numbers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/numbers/list?page=&size="
+          },
+          "docs": "List phone numbers"
+        },
+        {
+          "info": {
+            "name": "Update a phone number",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/numbers/update",
+            "body": {
+              "type": "json",
+              "data": "{\"phone_number\": \"<string>\", \"label\": \"<string>\", \"inbound_agent\": \"<uuid>\", \"outbound_only\": false}"
+            }
+          },
+          "docs": "Update a phone number"
+        },
+        {
+          "info": {
+            "name": "Cancel a phone number",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/numbers/cancel?phone_number="
+          },
+          "docs": "Cancel a phone number"
+        },
+        {
+          "info": {
+            "name": "Link a phone number",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/numbers/link",
+            "body": {
+              "type": "json",
+              "data": "{\"telephony_account_connection\": \"<uuid>\", \"phone_number\": \"<string>\"}"
+            }
+          },
+          "docs": "Link a phone number"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Actions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/actions/create",
+            "body": {
+              "type": "json",
+              "data": "{\"type\": \"action_transfer_call\", \"config\": {}}"
+            }
+          },
+          "docs": "Create an action"
+        },
+        {
+          "info": {
+            "name": "Get an action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/actions?id="
+          },
+          "docs": "Get an action"
+        },
+        {
+          "info": {
+            "name": "List actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/actions/list?page=&size="
+          },
+          "docs": "List actions"
+        },
+        {
+          "info": {
+            "name": "Update an action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/actions/update?id=",
+            "body": {
+              "type": "json",
+              "data": "{\"type\": \"action_transfer_call\", \"config\": {}}"
+            }
+          },
+          "docs": "Update an action"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Voices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a voice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/voices/create",
+            "body": {
+              "type": "json",
+              "data": "{\"type\": \"voice_eleven_labs\", \"voice_id\": \"<string>\"}"
+            }
+          },
+          "docs": "Create a voice"
+        },
+        {
+          "info": {
+            "name": "Get a voice",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/voices?id="
+          },
+          "docs": "Get a voice"
+        },
+        {
+          "info": {
+            "name": "List voices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/voices/list?page=&size="
+          },
+          "docs": "List voices"
+        },
+        {
+          "info": {
+            "name": "Update a voice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/voices/update?id=",
+            "body": {
+              "type": "json",
+              "data": "{\"type\": \"voice_eleven_labs\", \"voice_id\": \"<string>\"}"
+            }
+          },
+          "docs": "Update a voice"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/webhooks/create",
+            "body": {
+              "type": "json",
+              "data": "{\"url\": \"<string>\", \"method\": \"POST\", \"subscriptions\": [\"event_transcript\", \"event_phone_call_ended\"]}"
+            }
+          },
+          "docs": "Create a webhook"
+        },
+        {
+          "info": {
+            "name": "Get a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/webhooks?id="
+          },
+          "docs": "Get a webhook"
+        },
+        {
+          "info": {
+            "name": "List webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/webhooks/list?page=&size="
+          },
+          "docs": "List webhooks"
+        },
+        {
+          "info": {
+            "name": "Update a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/webhooks/update?id=",
+            "body": {
+              "type": "json",
+              "data": "{\"url\": \"<string>\", \"method\": \"POST\", \"subscriptions\": [\"event_transcript\"]}"
+            }
+          },
+          "docs": "Update a webhook"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get account usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/usage"
+          },
+          "docs": "Get account usage"
+        }
+      ]
+    }
+  ]
+}

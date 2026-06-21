@@ -1,0 +1,217 @@
+aid: vocode
+url: https://raw.githubusercontent.com/api-evangelist/vocode/refs/heads/main/apis.yml
+name: Vocode
+kind: company
+description: Vocode is an open-source Python library (vocode-core, MIT licensed) for
+  building real-time, streaming voice AI agents that run over phone calls, plus a
+  hosted REST API at https://api.vocode.dev/v1 (Bearer API key) for placing and managing
+  outbound and inbound phone calls, configuring agents, voices, prompts, actions,
+  phone numbers, and webhooks without operating the streaming infrastructure yourself.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Voice AI
+- Voice Agents
+- Telephony
+- Conversational AI
+- Phone Calls
+created: '2026-06-21'
+modified: '2026-06-21'
+specificationVersion: '0.19'
+apis:
+- aid: vocode:vocode-calls-api
+  name: Vocode Calls API
+  tags:
+  - Calls
+  - Outbound
+  - Inbound
+  - Telephony
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.vocode.dev/api-reference/calls/create-call
+  baseURL: https://api.vocode.dev/v1
+  properties:
+  - url: https://docs.vocode.dev/api-reference/calls/create-call
+    type: Documentation
+  - url: https://docs.vocode.dev/api-reference/calls/get-call
+    type: APIReference
+  - url: openapi/vocode-openapi.yml
+    type: OpenAPI
+  - url: collections/vocode.postman_collection.json
+    type: Postman
+  - url: collections/vocode.opencollection.json
+    type: OpenCollection
+  - url: https://github.com/vocodedev/vocode-core
+    type: GitHub
+  description: Create outbound calls, look up a single call, list calls, end an active
+    call, and download call recordings on the hosted Vocode platform, attaching an
+    inline or saved agent to each call.
+- aid: vocode:vocode-agents-api
+  name: Vocode Agents API
+  tags:
+  - Agents
+  - Conversational AI
+  - LLM
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.vocode.dev/api-reference/agents/create-agent
+  baseURL: https://api.vocode.dev/v1
+  properties:
+  - url: https://docs.vocode.dev/api-reference/agents/create-agent
+    type: Documentation
+  - url: https://docs.vocode.dev/api-reference/agents/get-agent
+    type: APIReference
+  - url: openapi/vocode-openapi.yml
+    type: OpenAPI
+  - url: collections/vocode.postman_collection.json
+    type: Postman
+  - url: collections/vocode.opencollection.json
+    type: OpenCollection
+  description: Create, retrieve, list, and update voice agents - each binding a prompt,
+    language, voice, actions, webhook, and conversation behavior (interrupt sensitivity,
+    endpointing, IVR navigation) used to drive a call.
+- aid: vocode:vocode-phone-numbers-api
+  name: Vocode Phone Numbers API
+  tags:
+  - Phone Numbers
+  - Telephony
+  - Provisioning
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.vocode.dev/api-reference/numbers/buy-number
+  baseURL: https://api.vocode.dev/v1
+  properties:
+  - url: https://docs.vocode.dev/api-reference/numbers/buy-number
+    type: Documentation
+  - url: https://docs.vocode.dev/api-reference/numbers/get-number
+    type: APIReference
+  - url: openapi/vocode-openapi.yml
+    type: OpenAPI
+  - url: collections/vocode.postman_collection.json
+    type: Postman
+  - url: collections/vocode.opencollection.json
+    type: OpenCollection
+  description: Buy, get, list, update, cancel, and link phone numbers, including binding
+    an inbound agent to a number or bringing your own Twilio/Vonage number via an
+    account connection.
+- aid: vocode:vocode-actions-api
+  name: Vocode Actions API
+  tags:
+  - Actions
+  - Tools
+  - Function Calling
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.vocode.dev/api-reference/actions/create-action
+  baseURL: https://api.vocode.dev/v1
+  properties:
+  - url: https://docs.vocode.dev/api-reference/actions/create-action
+    type: Documentation
+  - url: https://docs.vocode.dev/api-reference/actions/get-action
+    type: APIReference
+  - url: openapi/vocode-openapi.yml
+    type: OpenAPI
+  - url: collections/vocode.postman_collection.json
+    type: Postman
+  - url: collections/vocode.opencollection.json
+    type: OpenCollection
+  description: Create, get, list, and update actions an agent can take mid-call -
+    transfer call, end conversation, DTMF, set hold, add to conference, and external
+    HTTP actions - triggered by function call or phrase.
+- aid: vocode:vocode-voices-api
+  name: Vocode Voices API
+  tags:
+  - Voices
+  - Text to Speech
+  - Synthesis
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.vocode.dev/api-reference/voices/create-voice
+  baseURL: https://api.vocode.dev/v1
+  properties:
+  - url: https://docs.vocode.dev/api-reference/voices/create-voice
+    type: Documentation
+  - url: https://docs.vocode.dev/api-reference/voices/get-voice
+    type: APIReference
+  - url: openapi/vocode-openapi.yml
+    type: OpenAPI
+  - url: collections/vocode.postman_collection.json
+    type: Postman
+  - url: collections/vocode.opencollection.json
+    type: OpenCollection
+  description: Create, get, list, and update voices that agents speak with, wrapping
+    ElevenLabs, Azure, PlayHt, Rime, and the native Vocode voice synthesizers.
+- aid: vocode:vocode-webhooks-api
+  name: Vocode Webhooks API
+  tags:
+  - Webhooks
+  - Events
+  - Callbacks
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.vocode.dev/api-reference/webhooks/create-webhook
+  baseURL: https://api.vocode.dev/v1
+  properties:
+  - url: https://docs.vocode.dev/api-reference/webhooks/create-webhook
+    type: Documentation
+  - url: https://docs.vocode.dev/api-reference/webhooks/get-webhook
+    type: APIReference
+  - url: openapi/vocode-openapi.yml
+    type: OpenAPI
+  - url: collections/vocode.postman_collection.json
+    type: Postman
+  - url: collections/vocode.opencollection.json
+    type: OpenCollection
+  description: Create, get, list, and update webhooks that subscribe to call lifecycle
+    events - message, action, call connected/ended, transcript, recording, and human
+    detection - delivered to your endpoint via HTTP POST.
+- aid: vocode:vocode-realtime-streaming
+  name: Vocode Realtime Streaming Conversation
+  tags:
+  - Realtime
+  - Streaming
+  - WebSocket
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.vocode.dev/open-source/how-it-works
+  baseURL: https://api.vocode.dev/v1
+  properties:
+  - url: https://docs.vocode.dev/open-source/how-it-works
+    type: Documentation
+  - url: https://github.com/vocodedev/vocode-core/blob/main/vocode/streaming/streaming_conversation.py
+    type: GitHub
+  - url: review.yml
+    type: Review
+  description: Real-time, bidirectional streaming conversation pipeline (StreamingConversation)
+    in the open-source library that wires transcription, agent response, and synthesis
+    together; the hosted platform consumes telephony media-stream WebSockets, but
+    no public client-facing wss conversation endpoint is documented in the hosted
+    REST API.
+- aid: vocode:vocode-oss-library
+  name: Vocode Open Source Library
+  tags:
+  - Open Source
+  - Python
+  - Library
+  - SDK
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.vocode.dev/open-source/what-is-vocode
+  baseURL: https://github.com/vocodedev/vocode-core
+  properties:
+  - url: https://docs.vocode.dev/open-source/what-is-vocode
+    type: Documentation
+  - url: https://github.com/vocodedev/vocode-core
+    type: GitHub
+  description: vocode-core, the MIT-licensed Python library for building voice-based
+    LLM agents with pluggable STT, LLM, and TTS providers and Twilio/Vonage telephony,
+    self-hosted and free, distinct from the hosted Vocode API.
+common:
+- type: GitHubOrganization
+  url: https://github.com/vocodedev
+- type: LinkedIn
+  url: https://www.linkedin.com/company/vocode
+- type: Website
+  url: https://www.vocode.dev
+- type: Documentation
+  url: https://docs.vocode.dev
+- type: Plans
+  url: plans/vocode-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/vocode-rate-limits.yml
+- type: FinOps
+  url: finops/vocode-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,106 @@
+aid: vocode
+name: Vocode
+review:
+  question: Does Vocode expose a documented public WebSocket API?
+  answer: partial
+  date: '2026-06-21'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    Vocode's real-time streaming is a property of the open-source vocode-core
+    library, not a client-facing endpoint of the hosted REST API. The library's
+    StreamingConversation pipeline runs bidirectional audio over WebSocket
+    transports against telephony providers (Twilio / Vonage media streams) and
+    local microphone/speaker IO, but the audio frame protocol is an internal
+    library/telephony detail rather than a documented, addressable public wss
+    conversation endpoint with a published message schema. The hosted Vocode
+    API (https://api.vocode.dev/v1) is REST-only. An AsyncAPI document was
+    therefore not authored; if Vocode publishes a stable public streaming
+    contract in the future, an AsyncAPI 2.6/3.0 spec should be added then.
+findings:
+  summary: |
+    Vocode has two surfaces. (1) The hosted Vocode API at
+    https://api.vocode.dev/v1 is a Bearer-authenticated REST API (Calls,
+    Agents, Numbers, Actions, Voices, Webhooks, Usage); it documents no public
+    WebSocket/streaming endpoint - real-time call events are delivered out of
+    band via HTTP webhooks. (2) The open-source vocode-core Python library
+    implements real-time, bidirectional streaming conversations
+    (StreamingConversation) and runs a telephony server that bridges Twilio /
+    Vonage media-stream WebSockets to the STT -> LLM -> TTS pipeline. That
+    WebSocket usage is real but is library/telephony plumbing, not a documented
+    public hosted API surface a third-party client connects to directly.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.vocode.dev/v1
+      documented: true
+      note: Hosted API for calls, agents, numbers, actions, voices, webhooks, usage. Bearer auth.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Outbound HTTP POST callbacks for call lifecycle events (transcript, recording, call connected/ended, human detection) configured via /v1/webhooks.
+    - protocol: WebSocket
+      scheme: wss
+      documented: partial
+      note: >-
+        Used inside the open-source library / telephony layer for real-time
+        media streaming (Twilio and Vonage media streams, local conversation).
+        Not exposed as a documented public hosted wss endpoint with a published
+        message contract.
+  endpointsConfirmedRest:
+    - POST https://api.vocode.dev/v1/calls/create
+    - GET  https://api.vocode.dev/v1/calls
+    - GET  https://api.vocode.dev/v1/calls/list
+    - POST https://api.vocode.dev/v1/calls/end
+    - GET  https://api.vocode.dev/v1/calls/recording
+    - POST https://api.vocode.dev/v1/agents/create
+    - GET  https://api.vocode.dev/v1/agents
+    - GET  https://api.vocode.dev/v1/agents/list
+    - POST https://api.vocode.dev/v1/agents/update
+    - POST https://api.vocode.dev/v1/numbers/buy
+    - GET  https://api.vocode.dev/v1/numbers
+    - GET  https://api.vocode.dev/v1/numbers/list
+    - POST https://api.vocode.dev/v1/numbers/update
+    - POST https://api.vocode.dev/v1/numbers/cancel
+    - POST https://api.vocode.dev/v1/numbers/link
+    - POST https://api.vocode.dev/v1/actions/create
+    - GET  https://api.vocode.dev/v1/actions
+    - GET  https://api.vocode.dev/v1/actions/list
+    - POST https://api.vocode.dev/v1/actions/update
+    - POST https://api.vocode.dev/v1/voices/create
+    - GET  https://api.vocode.dev/v1/voices
+    - GET  https://api.vocode.dev/v1/voices/list
+    - POST https://api.vocode.dev/v1/voices/update
+    - POST https://api.vocode.dev/v1/webhooks/create
+    - GET  https://api.vocode.dev/v1/webhooks
+    - GET  https://api.vocode.dev/v1/webhooks/list
+    - POST https://api.vocode.dev/v1/webhooks/update
+    - GET  https://api.vocode.dev/v1/usage
+sources:
+  - url: https://docs.vocode.dev/hosted-quickstart
+    type: Documentation
+    note: Hosted quickstart describes Python/Node SDKs and direct REST access; no public WebSocket endpoint.
+  - url: https://docs.vocode.dev/api-reference/calls/create-call
+    type: APIReference
+    note: All documented hosted endpoints are HTTPS REST under https://api.vocode.dev/v1.
+  - url: https://docs.vocode.dev/open-source/how-it-works
+    type: Documentation
+    note: Describes the StreamingConversation pipeline (STT -> agent -> TTS) used by the open-source library.
+  - url: https://github.com/vocodedev/vocode-core/blob/main/vocode/streaming/streaming_conversation.py
+    type: GitHub
+    note: Open-source StreamingConversation implementation; real-time streaming lives in the library, bridged to telephony media-stream WebSockets.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    The hosted API is REST-only with HTTP webhooks for events; no public
+    WebSocket endpoint with a documented message contract is exposed, so no
+    AsyncAPI document was authored. The real-time WebSocket streaming that
+    does exist is internal to the open-source vocode-core library and its
+    telephony media-stream bridge. apis.yml models this as a distinct
+    "Vocode Realtime Streaming Conversation" API pointing at the library and
+    this review, and separately catalogs the open-source library, so OSS vs
+    hosted surfaces are not conflated.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,1068 @@
+{
+  "item": [
+    {
+      "id": "635a108f-d6ee-494d-8063-066ad1e380c5",
+      "name": "Calls",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "44182118-9812-4b02-8c59-70c80b11d0f1",
+          "name": "Create an outbound call",
+          "request": {
+            "name": "Create an outbound call",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "calls",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from_number\": \"<string>\",\n  \"to_number\": \"<string>\",\n  \"agent\": \"<uuid>\",\n  \"on_no_human_answer\": \"continue\",\n  \"run_do_not_call_detection\": false,\n  \"hipaa_compliant\": false,\n  \"context\": {},\n  \"telephony_params\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "8d68f6f8-7ef5-4988-97da-14040c555341",
+          "name": "Get a call",
+          "request": {
+            "name": "Get a call",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "calls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "5897cef0-25ec-4d25-bd35-14a4c5a9322c",
+          "name": "List calls",
+          "request": {
+            "name": "List calls",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "calls",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "<string>"
+                },
+                {
+                  "key": "size",
+                  "value": "<string>"
+                },
+                {
+                  "key": "sort_column",
+                  "value": "<string>"
+                },
+                {
+                  "key": "sort_desc",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "f21e9797-077f-4be5-ac02-487500fb2899",
+          "name": "End a call",
+          "request": {
+            "name": "End a call",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "calls",
+                "end"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "POST",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "fe729cbf-90d9-4a59-ab36-fe1845e3befe",
+          "name": "Get a call recording",
+          "request": {
+            "name": "Get a call recording",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "calls",
+                "recording"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "892067bc-7795-4a5f-b3de-7742fc21a2e7",
+      "name": "Agents",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "60685dfd-c18b-4239-b091-0ad993d79f46",
+          "name": "Create an agent",
+          "request": {
+            "name": "Create an agent",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "agents",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"language\": \"en\",\n  \"voice\": \"<uuid>\",\n  \"initial_message\": \"<string>\",\n  \"actions\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "444aa7d5-7bec-4b1f-a5fb-256e08c35007",
+          "name": "Get an agent",
+          "request": {
+            "name": "Get an agent",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "agents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "bcdfaecf-23e9-4a9c-b958-552a1ff3b788",
+          "name": "List agents",
+          "request": {
+            "name": "List agents",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "agents",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "<string>"
+                },
+                {
+                  "key": "size",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "f0c8ca24-d523-4061-908e-8cabb032eda1",
+          "name": "Update an agent",
+          "request": {
+            "name": "Update an agent",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "agents",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"prompt\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "77a30898-84a5-4b9d-91a6-fd922b077c01",
+      "name": "Numbers",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dbddd8a3-10e2-4392-a42b-9f50b7c9dade",
+          "name": "Buy a phone number",
+          "request": {
+            "name": "Buy a phone number",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "numbers",
+                "buy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"area_code\": \"<string>\",\n  \"telephony_provider\": \"twilio\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "4d9b347f-867f-433f-bd8c-cb3bff4a94bb",
+          "name": "Get a phone number",
+          "request": {
+            "name": "Get a phone number",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "numbers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "phone_number",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "e2e4ac17-521f-4eac-a03d-dd3c85320bda",
+          "name": "List phone numbers",
+          "request": {
+            "name": "List phone numbers",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "numbers",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "<string>"
+                },
+                {
+                  "key": "size",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "4e6e09da-8e7b-4869-9417-e1dff1dde17a",
+          "name": "Update a phone number",
+          "request": {
+            "name": "Update a phone number",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "numbers",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone_number\": \"<string>\",\n  \"label\": \"<string>\",\n  \"inbound_agent\": \"<uuid>\",\n  \"outbound_only\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "85350128-668c-4556-8dc0-2a9508d44be7",
+          "name": "Cancel a phone number",
+          "request": {
+            "name": "Cancel a phone number",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "numbers",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "phone_number",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "POST",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "9a93959d-c86e-4892-8168-51e9272874b5",
+          "name": "Link a phone number",
+          "request": {
+            "name": "Link a phone number",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "numbers",
+                "link"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"telephony_account_connection\": \"<uuid>\",\n  \"phone_number\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "060aa235-20ea-4d0c-911f-614823e0d4df",
+      "name": "Actions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ff375b6f-9598-4a2f-bc6a-aa82fd9371ad",
+          "name": "Create an action",
+          "request": {
+            "name": "Create an action",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "actions",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"action_transfer_call\",\n  \"config\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "65e05ff8-1581-419b-ac53-6cb47f1e0fd2",
+          "name": "Get an action",
+          "request": {
+            "name": "Get an action",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "actions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "044797a3-dd50-4c64-ab62-188be0f6a234",
+          "name": "List actions",
+          "request": {
+            "name": "List actions",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "actions",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "<string>"
+                },
+                {
+                  "key": "size",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "9477d486-570a-40a0-ae6d-8723fd9ec06e",
+          "name": "Update an action",
+          "request": {
+            "name": "Update an action",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "actions",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"action_transfer_call\",\n  \"config\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "6991f536-ccd5-4a54-854f-c1ecb35b0a8d",
+      "name": "Voices",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "22080006-62f3-46a9-9839-b490addbf49b",
+          "name": "Create a voice",
+          "request": {
+            "name": "Create a voice",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "voices",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"voice_eleven_labs\",\n  \"voice_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "ecc47c3e-1789-4513-9cc7-d495f7c18967",
+          "name": "Get a voice",
+          "request": {
+            "name": "Get a voice",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "voices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "7a1659f8-006b-4f15-8974-6243d931e97e",
+          "name": "List voices",
+          "request": {
+            "name": "List voices",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "voices",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "<string>"
+                },
+                {
+                  "key": "size",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "a1f97614-6dbd-4725-b523-66acdb6aa095",
+          "name": "Update a voice",
+          "request": {
+            "name": "Update a voice",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "voices",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"voice_eleven_labs\",\n  \"voice_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "f828255d-9bd4-46a7-b804-d8848d9b38e5",
+      "name": "Webhooks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1cb92544-1be0-4800-b2e9-e9eef876002c",
+          "name": "Create a webhook",
+          "request": {
+            "name": "Create a webhook",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "webhooks",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<string>\",\n  \"method\": \"POST\",\n  \"subscriptions\": [\n    \"event_transcript\",\n    \"event_phone_call_ended\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "9d98e049-2fea-498a-a92a-070ccc8f8c73",
+          "name": "Get a webhook",
+          "request": {
+            "name": "Get a webhook",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "eeea6cd4-cc0d-43ce-84f5-5e8b5517d664",
+          "name": "List webhooks",
+          "request": {
+            "name": "List webhooks",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "webhooks",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "<string>"
+                },
+                {
+                  "key": "size",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "424814bb-b5a3-437f-9aa1-6c811dabe77e",
+          "name": "Update a webhook",
+          "request": {
+            "name": "Update a webhook",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "webhooks",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<string>\",\n  \"method\": \"POST\",\n  \"subscriptions\": [\n    \"event_transcript\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "108f3b4b-08e1-4857-9e51-8a215009f3f6",
+      "name": "Usage",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "26b7c987-df61-48d3-b12a-0e07b8e08c1d",
+          "name": "Get account usage",
+          "request": {
+            "name": "Get account usage",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "info": {
+    "_postman_id": "a982af5e-058c-41ee-b9a4-9d7e25d29927",
+    "name": "Vocode Hosted API",
+    "description": {
+      "content": "Hosted REST API for the Vocode voice AI platform.",
+      "type": "text/plain"
+    },
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "variable": [
+    {
+      "id": "baseUrl",
+      "key": "baseUrl",
+      "type": "string",
+      "value": "https://api.vocode.dev"
+    },
+    {
+      "id": "bearerToken",
+      "key": "bearerToken",
+      "type": "string",
+      "value": ""
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  }
+}

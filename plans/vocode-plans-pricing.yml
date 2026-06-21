@@ -1,0 +1,135 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Vocode
+providerId: vocode
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Voice AI
+- Voice Agents
+- Telephony
+- Conversational AI
+- Phone Calls
+- Plans
+description: >-
+  Vocode has two distinct cost models. The open-source vocode-core Python
+  library is MIT licensed and free to self-host; you pay only the underlying
+  STT, LLM, TTS, and telephony providers you wire into it. The hosted Vocode
+  API meters usage by call minutes and exposes plan tiers (free, developer,
+  enterprise, unlimited) surfaced by the GET /v1/usage endpoint. Public
+  per-minute hosted rates and plan prices are not currently published on an
+  open pricing page, so the hosted entries below are marked unreconciled.
+notes: >-
+  The hosted Vocode pricing page (vocode.dev/pricing) is not publicly
+  available and currently redirects to the GitHub organization; hosted
+  per-minute rates and tier prices must be confirmed with Vocode directly on
+  reconciliation. The plan_type enum (plan_free, plan_developer,
+  plan_enterprise, plan_unlimited) is taken from the hosted API usage schema.
+sources:
+- https://www.vocode.dev
+- https://docs.vocode.dev/hosted-quickstart
+- https://github.com/vocodedev/vocode-core
+plans:
+- id: vocode-open-source
+  name: Open Source Library
+  type: free
+  description: >-
+    vocode-core, the MIT-licensed Python library, self-hosted at no license
+    cost. You pay only the third-party STT / LLM / TTS / telephony providers
+    you configure.
+  entries:
+  - label: vocode-core Library
+    name: oss_library
+    type: flat
+    metric: license
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.00 (MIT license, self-hosted)
+    userMultiplied: false
+  elements:
+  - name: StreamingConversation Pipeline
+  - name: Telephony Server (Twilio / Vonage)
+  - name: Pluggable STT / LLM / TTS Providers
+- id: vocode-hosted-free
+  name: Hosted Free
+  type: usage
+  description: >-
+    Entry hosted tier (plan_free) with a capped monthly allotment of call
+    minutes; usage tracked via GET /v1/usage.
+  entries:
+  - label: Hosted Call Minutes
+    name: hosted_call_minutes_free
+    type: usage
+    metric: minutes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: per-minute rate not published - confirm with Vocode
+    userMultiplied: false
+  elements:
+  - name: Calls
+  - name: Agents
+  - name: Voices
+  - name: Phone Numbers
+- id: vocode-hosted-developer
+  name: Hosted Developer
+  type: usage
+  description: >-
+    Paid hosted developer tier (plan_developer) with a higher monthly
+    call-minute allowance and additional capabilities.
+  entries:
+  - label: Monthly Subscription
+    name: hosted_developer_subscription
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: monthly price not published - confirm with Vocode
+    userMultiplied: false
+  - label: Hosted Call Minutes
+    name: hosted_call_minutes_developer
+    type: usage
+    metric: minutes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: per-minute rate not published - confirm with Vocode
+    userMultiplied: false
+  elements:
+  - name: Calls
+  - name: Agents
+  - name: Actions
+  - name: Webhooks
+- id: vocode-hosted-enterprise
+  name: Hosted Enterprise
+  type: enterprise
+  description: >-
+    Enterprise hosted tier (plan_enterprise / plan_unlimited) with volume
+    call-minute commitments, full API access, and negotiated terms. Contact
+    Vocode.
+  entries:
+  - label: Enterprise Agreement
+    name: hosted_enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact Vocode
+    userMultiplied: false
+  elements:
+  - name: Volume Call Minutes
+  - name: Full API Access
+  - name: HIPAA Compliance
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

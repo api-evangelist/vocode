@@ -1,0 +1,105 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Vocode
+providerId: vocode
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Voice AI
+- Voice Agents
+- Telephony
+- Conversational AI
+- Phone Calls
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Vocode spend. The hosted Vocode platform bills usage-based
+  per-call-minute charges metered against a monthly plan allowance
+  (monthly_usage_minutes / monthly_usage_limit_minutes via GET /v1/usage),
+  plus pass-through telephony costs for provisioned or linked phone numbers.
+  The open-source vocode-core library carries no Vocode license cost; spend
+  there is entirely the third-party STT, LLM, TTS, and telephony providers
+  you configure. Public hosted per-minute rates are not published, so dollar
+  figures here are unreconciled.
+notes: >-
+  Hosted per-minute rates and plan prices are not published on a public
+  pricing page; verify with Vocode on reconciliation. For self-hosted
+  vocode-core, track cost at each underlying provider (e.g. Deepgram /
+  AssemblyAI STT, OpenAI / Anthropic LLM, ElevenLabs / Azure / PlayHt TTS,
+  Twilio / Vonage telephony) rather than at Vocode.
+sources:
+- https://docs.vocode.dev/hosted-quickstart
+- https://www.vocode.dev
+- https://github.com/vocodedev/vocode-core
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Vocode
+serviceCategory: AI and Machine Learning
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Vocode Hosted API
+  ServiceCategory: AI and Machine Learning
+  ProviderName: Vocode
+  PublisherName: Vocode
+  InvoiceIssuerName: Vocode
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: call_minutes
+  description: Minutes of hosted voice agent call time, metered monthly against the plan allowance.
+  unit: minutes
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+  - agent
+- name: phone_number_rental
+  description: Monthly rental for phone numbers bought through Vocode; pass-through telephony cost.
+  unit: numbers
+  aggregation: sum
+  dimensions:
+  - account
+  - telephony_provider
+- name: recording_storage
+  description: Storage and retrieval of call recordings downloaded via /v1/calls/recording.
+  unit: recordings
+  aggregation: sum
+  dimensions:
+  - account
+- name: oss_provider_passthrough
+  description: >-
+    Third-party STT / LLM / TTS / telephony spend incurred when self-hosting
+    vocode-core; billed by those providers, not Vocode.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - account
+  - provider
+principles:
+- name: Visibility
+  description: Poll GET /v1/usage for monthly_usage_minutes vs monthly_usage_limit_minutes; for self-hosted, aggregate spend across each underlying provider.
+- name: Allocation
+  description: Tag agents and phone numbers per workload/team; map hosted call minutes and number rentals to internal cost centers.
+- name: Optimization
+  description: Self-host vocode-core when volume justifies it to swap per-minute hosted billing for provider-rate control; pick cheaper STT/LLM/TTS providers; right-size voices and models per use case.
+- name: Accountability
+  description: Assign owners per agent/campaign; review monthly call-minute burn against the plan limit before overage.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

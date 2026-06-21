@@ -1,0 +1,1185 @@
+openapi: 3.0.1
+info:
+  title: Vocode Hosted API
+  description: >-
+    Hosted REST API for the Vocode voice AI platform. Place and manage outbound
+    and inbound phone calls driven by configurable voice agents, and manage the
+    agents, voices, prompts, actions, phone numbers, and webhooks that power them.
+    All requests are authenticated with a Bearer API key. This specification
+    covers the hosted API and is distinct from the open-source vocode-core
+    Python library.
+  termsOfService: https://www.vocode.dev
+  contact:
+    name: Vocode Support
+    url: https://docs.vocode.dev
+  version: '1.0.0'
+servers:
+  - url: https://api.vocode.dev/v1
+    description: Production environment
+security:
+  - HTTPBearer: []
+tags:
+  - name: Calls
+  - name: Agents
+  - name: Numbers
+  - name: Actions
+  - name: Voices
+  - name: Webhooks
+  - name: Usage
+paths:
+  /calls/create:
+    post:
+      operationId: createCall
+      tags:
+        - Calls
+      summary: Create an outbound call
+      description: Places an outbound phone call using the provided from/to numbers and an inline or saved agent.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCallRequest'
+      responses:
+        '200':
+          description: The created call.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Call'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /calls:
+    get:
+      operationId: getCall
+      tags:
+        - Calls
+      summary: Get a call
+      description: Retrieves a single call by id.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The requested call.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Call'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /calls/list:
+    get:
+      operationId: listCalls
+      tags:
+        - Calls
+      summary: List calls
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+        - $ref: '#/components/parameters/SortColumn'
+        - $ref: '#/components/parameters/SortDesc'
+      responses:
+        '200':
+          description: A paginated page of calls.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CallPage'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /calls/end:
+    post:
+      operationId: endCall
+      tags:
+        - Calls
+      summary: End a call
+      description: Ends an active call by id.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The ended call.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Call'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /calls/recording:
+    get:
+      operationId: getRecording
+      tags:
+        - Calls
+      summary: Get a call recording
+      description: Downloads the audio recording for a completed call.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The call recording audio.
+          content:
+            audio/wav:
+              schema:
+                type: string
+                format: binary
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /agents/create:
+    post:
+      operationId: createAgent
+      tags:
+        - Agents
+      summary: Create an agent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentParams'
+      responses:
+        '200':
+          description: The created agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /agents:
+    get:
+      operationId: getAgent
+      tags:
+        - Agents
+      summary: Get an agent
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The requested agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /agents/list:
+    get:
+      operationId: listAgents
+      tags:
+        - Agents
+      summary: List agents
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: A paginated page of agents.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentPage'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /agents/update:
+    post:
+      operationId: updateAgent
+      tags:
+        - Agents
+      summary: Update an agent
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentParams'
+      responses:
+        '200':
+          description: The updated agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /numbers/buy:
+    post:
+      operationId: buyNumber
+      tags:
+        - Numbers
+      summary: Buy a phone number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuyPhoneNumberRequest'
+      responses:
+        '200':
+          description: The provisioned phone number.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneNumber'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /numbers:
+    get:
+      operationId: getNumber
+      tags:
+        - Numbers
+      summary: Get a phone number
+      parameters:
+        - name: phone_number
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The requested phone number.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneNumber'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /numbers/list:
+    get:
+      operationId: listNumbers
+      tags:
+        - Numbers
+      summary: List phone numbers
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: A paginated page of phone numbers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneNumberPage'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /numbers/update:
+    post:
+      operationId: updateNumber
+      tags:
+        - Numbers
+      summary: Update a phone number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateNumberRequest'
+      responses:
+        '200':
+          description: The updated phone number.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneNumber'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /numbers/cancel:
+    post:
+      operationId: cancelNumber
+      tags:
+        - Numbers
+      summary: Cancel a phone number
+      parameters:
+        - name: phone_number
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The cancelled phone number.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneNumber'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /numbers/link:
+    post:
+      operationId: linkNumber
+      tags:
+        - Numbers
+      summary: Link a phone number
+      description: Links an externally owned (Twilio/Vonage) number to your Vocode account via an account connection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkPhoneNumberRequest'
+      responses:
+        '200':
+          description: The linked phone number.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneNumber'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /actions/create:
+    post:
+      operationId: createAction
+      tags:
+        - Actions
+      summary: Create an action
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionParams'
+      responses:
+        '200':
+          description: The created action.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /actions:
+    get:
+      operationId: getAction
+      tags:
+        - Actions
+      summary: Get an action
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The requested action.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /actions/list:
+    get:
+      operationId: listActions
+      tags:
+        - Actions
+      summary: List actions
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: A paginated page of actions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionPage'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /actions/update:
+    post:
+      operationId: updateAction
+      tags:
+        - Actions
+      summary: Update an action
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionParams'
+      responses:
+        '200':
+          description: The updated action.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /voices/create:
+    post:
+      operationId: createVoice
+      tags:
+        - Voices
+      summary: Create a voice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VoiceParams'
+      responses:
+        '200':
+          description: The created voice.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voice'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /voices:
+    get:
+      operationId: getVoice
+      tags:
+        - Voices
+      summary: Get a voice
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The requested voice.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voice'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /voices/list:
+    get:
+      operationId: listVoices
+      tags:
+        - Voices
+      summary: List voices
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: A paginated page of voices.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoicePage'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /voices/update:
+    post:
+      operationId: updateVoice
+      tags:
+        - Voices
+      summary: Update a voice
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VoiceParams'
+      responses:
+        '200':
+          description: The updated voice.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voice'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /webhooks/create:
+    post:
+      operationId: createWebhook
+      tags:
+        - Webhooks
+      summary: Create a webhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookParams'
+      responses:
+        '200':
+          description: The created webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /webhooks:
+    get:
+      operationId: getWebhook
+      tags:
+        - Webhooks
+      summary: Get a webhook
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The requested webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /webhooks/list:
+    get:
+      operationId: listWebhooks
+      tags:
+        - Webhooks
+      summary: List webhooks
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: A paginated page of webhooks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookPage'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /webhooks/update:
+    post:
+      operationId: updateWebhook
+      tags:
+        - Webhooks
+      summary: Update a webhook
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookParams'
+      responses:
+        '200':
+          description: The updated webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /usage:
+    get:
+      operationId: getUsage
+      tags:
+        - Usage
+      summary: Get account usage
+      description: Returns the account plan type and monthly call-minute usage against any limit.
+      responses:
+        '200':
+          description: The account usage.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usage'
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+  parameters:
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+    Size:
+      name: size
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 10
+    SortColumn:
+      name: sort_column
+      in: query
+      required: false
+      schema:
+        type: string
+    SortDesc:
+      name: sort_desc
+      in: query
+      required: false
+      schema:
+        type: boolean
+  responses:
+    ValidationError:
+      description: Validation error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPValidationError'
+  schemas:
+    CallStatus:
+      type: string
+      enum:
+        - not_started
+        - in_progress
+        - error
+        - ended
+    PlanType:
+      type: string
+      enum:
+        - plan_free
+        - plan_developer
+        - plan_enterprise
+        - plan_unlimited
+    CreateCallRequest:
+      type: object
+      required:
+        - from_number
+        - to_number
+        - agent
+      properties:
+        from_number:
+          type: string
+          description: The phone number to place the call from (must be owned or linked).
+        to_number:
+          type: string
+          description: The destination phone number to dial.
+        agent:
+          description: A saved agent id (UUID) or an inline agent configuration.
+          oneOf:
+            - type: string
+              format: uuid
+            - $ref: '#/components/schemas/AgentParams'
+        on_no_human_answer:
+          type: string
+          enum:
+            - continue
+            - hangup
+          default: continue
+        run_do_not_call_detection:
+          type: boolean
+          nullable: true
+        hipaa_compliant:
+          type: boolean
+          default: false
+        context:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        telephony_params:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+    Call:
+      type: object
+      required:
+        - id
+        - user_id
+        - status
+        - to_number
+        - from_number
+        - agent
+        - telephony_provider
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        status:
+          $ref: '#/components/schemas/CallStatus'
+        to_number:
+          type: string
+        from_number:
+          type: string
+        agent:
+          $ref: '#/components/schemas/Agent'
+        telephony_provider:
+          type: string
+          enum:
+            - vonage
+            - twilio
+        agent_phone_number:
+          type: string
+        transcript:
+          type: string
+          nullable: true
+        error_message:
+          type: string
+          nullable: true
+        recording_available:
+          type: boolean
+        human_detection_result:
+          type: string
+          nullable: true
+        do_not_call_result:
+          type: boolean
+          nullable: true
+        stage:
+          type: string
+          nullable: true
+        stage_outcome:
+          type: string
+          nullable: true
+        start_time:
+          type: string
+          nullable: true
+        end_time:
+          type: string
+          nullable: true
+        hipaa_compliant:
+          type: boolean
+    CallPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Call'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
+    Agent:
+      type: object
+      required:
+        - id
+        - user_id
+        - prompt
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+        prompt:
+          description: A prompt id (UUID) or inline prompt configuration.
+          type: string
+        language:
+          type: string
+        voice:
+          type: string
+          format: uuid
+          nullable: true
+        initial_message:
+          type: string
+          nullable: true
+        webhook:
+          type: string
+          format: uuid
+          nullable: true
+        vector_database:
+          type: string
+          format: uuid
+          nullable: true
+        interrupt_sensitivity:
+          type: string
+          enum:
+            - low
+            - high
+          nullable: true
+        actions:
+          type: array
+          items:
+            type: string
+            format: uuid
+    AgentParams:
+      type: object
+      required:
+        - prompt
+      properties:
+        name:
+          type: string
+        prompt:
+          type: string
+        language:
+          type: string
+        voice:
+          type: string
+          format: uuid
+        initial_message:
+          type: string
+        webhook:
+          type: string
+          format: uuid
+        vector_database:
+          type: string
+          format: uuid
+        interrupt_sensitivity:
+          type: string
+          enum:
+            - low
+            - high
+        actions:
+          type: array
+          items:
+            type: string
+            format: uuid
+    AgentPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Agent'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
+    PhoneNumber:
+      type: object
+      required:
+        - id
+        - user_id
+        - number
+        - telephony_provider
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        active:
+          type: boolean
+        label:
+          type: string
+        inbound_agent:
+          type: string
+          format: uuid
+          nullable: true
+        outbound_only:
+          type: boolean
+        number:
+          type: string
+        telephony_provider:
+          type: string
+          enum:
+            - vonage
+            - twilio
+    PhoneNumberPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
+    BuyPhoneNumberRequest:
+      type: object
+      properties:
+        area_code:
+          type: string
+        telephony_provider:
+          type: string
+          enum:
+            - vonage
+            - twilio
+    UpdateNumberRequest:
+      type: object
+      required:
+        - phone_number
+      properties:
+        phone_number:
+          type: string
+        label:
+          type: string
+        inbound_agent:
+          type: string
+          format: uuid
+        outbound_only:
+          type: boolean
+    LinkPhoneNumberRequest:
+      type: object
+      required:
+        - telephony_account_connection
+        - phone_number
+      properties:
+        telephony_account_connection:
+          type: string
+          format: uuid
+        phone_number:
+          type: string
+    Action:
+      type: object
+      required:
+        - id
+        - user_id
+        - type
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum:
+            - action_transfer_call
+            - action_end_conversation
+            - action_dtmf
+            - action_set_hold
+            - action_add_to_conference
+            - action_external
+        config:
+          type: object
+    ActionParams:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - action_transfer_call
+            - action_end_conversation
+            - action_dtmf
+            - action_set_hold
+            - action_add_to_conference
+            - action_external
+        config:
+          type: object
+    ActionPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Action'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
+    Voice:
+      type: object
+      required:
+        - id
+        - user_id
+        - type
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum:
+            - voice_eleven_labs
+            - voice_azure
+            - voice_play_ht
+            - voice_rime
+            - voice_vocode
+        voice_id:
+          type: string
+    VoiceParams:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - voice_eleven_labs
+            - voice_azure
+            - voice_play_ht
+            - voice_rime
+            - voice_vocode
+        voice_id:
+          type: string
+    VoicePage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Voice'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
+    Webhook:
+      type: object
+      required:
+        - id
+        - user_id
+        - url
+        - subscriptions
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        url:
+          type: string
+          format: uri
+        method:
+          type: string
+          enum:
+            - POST
+            - GET
+        subscriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventType'
+    WebhookParams:
+      type: object
+      required:
+        - url
+        - subscriptions
+      properties:
+        url:
+          type: string
+          format: uri
+        method:
+          type: string
+          enum:
+            - POST
+            - GET
+        subscriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventType'
+    WebhookPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Webhook'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
+    EventType:
+      type: string
+      enum:
+        - event_message
+        - event_action
+        - event_phone_call_connected
+        - event_phone_call_ended
+        - event_phone_call_did_not_connect
+        - event_transcript
+        - event_recording
+        - event_human_detection
+    Usage:
+      type: object
+      required:
+        - user_id
+        - plan_type
+        - monthly_usage_minutes
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        plan_type:
+          $ref: '#/components/schemas/PlanType'
+        monthly_usage_minutes:
+          type: integer
+        monthly_usage_limit_minutes:
+          type: integer
+          nullable: true
+    ValidationError:
+      type: object
+      required:
+        - loc
+        - msg
+        - type
+      properties:
+        loc:
+          type: array
+          items:
+            type: string
+        msg:
+          type: string
+        type:
+          type: string
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'

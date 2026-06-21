@@ -1,0 +1,72 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Vocode
+providerId: vocode
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Voice AI
+- Voice Agents
+- Telephony
+- Conversational AI
+- Phone Calls
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  The hosted Vocode API authenticates with a Bearer API key and meters usage
+  by monthly call minutes against a per-account plan limit
+  (monthly_usage_limit_minutes), surfaced via GET /v1/usage. List endpoints
+  are paginated (page / size). Vocode does not publish explicit per-endpoint
+  request-per-minute throttles; the practical limiting factor on the hosted
+  API is concurrent calls and the monthly call-minute allotment for the
+  account plan. The open-source vocode-core library has no Vocode-imposed
+  rate limits - it is bound only by the third-party STT / LLM / TTS /
+  telephony providers you configure. Specific values are not reconciled in
+  this artifact.
+notes: >-
+  Confirm concurrent-call limits, any request-per-minute throttles, and the
+  per-plan monthly_usage_limit_minutes values with Vocode on reconciliation.
+sources:
+- https://docs.vocode.dev/hosted-quickstart
+- https://docs.vocode.dev/api-reference/calls/create-call
+- https://github.com/vocodedev/vocode-core
+responseCodes:
+  throttled: 429
+  validation: 422
+limits:
+- name: Monthly Call Minutes
+  scope: account
+  metric: minutes
+  limit: see plan (monthly_usage_limit_minutes via GET /v1/usage)
+  notes: Per-account monthly call-minute allowance tied to plan_type; null on unlimited plans.
+- name: Concurrent Calls
+  scope: account
+  metric: concurrent_calls
+  limit: see provider documentation
+  notes: Number of simultaneous live calls; varies by plan. Confirm with Vocode.
+- name: Requests Per Minute (RPM)
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No explicit per-endpoint RPM throttle is documented for the hosted REST API.
+- name: Pagination
+  scope: request
+  metric: items
+  limit: size (default 10)
+  notes: List endpoints page via page and size query parameters.
+- name: Open Source Library
+  scope: deployment
+  metric: requests
+  limit: no Vocode-imposed limit
+  notes: Self-hosted vocode-core is limited only by the underlying provider APIs you wire in.
+policies:
+- name: Plan-Based Quotas
+  description: Call-minute allotments and concurrency scale with the account plan tier (free, developer, enterprise, unlimited).
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter on 429 responses and honor any Retry-After header.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

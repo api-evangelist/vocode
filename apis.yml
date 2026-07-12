@@ -198,6 +198,10 @@ apis:
     LLM agents with pluggable STT, LLM, and TTS providers and Twilio/Vonage telephony,
     self-hosted and free, distinct from the hosted Vocode API.
 common:
+- type: DomainSecurity
+  url: security/vocode-domain-security.yml
+- type: Authentication
+  url: authentication/vocode-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/vocodedev
 - type: LinkedIn

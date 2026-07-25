@@ -1,0 +1,270 @@
+openapi: 3.0.1
+info:
+  title: Vocode Hosted Actions Numbers API
+  description: Hosted REST API for the Vocode voice AI platform. Place and manage outbound and inbound phone calls driven by configurable voice agents, and manage the agents, voices, prompts, actions, phone numbers, and webhooks that power them. All requests are authenticated with a Bearer API key. This specification covers the hosted API and is distinct from the open-source vocode-core Python library.
+  termsOfService: https://www.vocode.dev
+  contact:
+    name: Vocode Support
+    url: https://docs.vocode.dev
+  version: 1.0.0
+servers:
+- url: https://api.vocode.dev/v1
+  description: Production environment
+security:
+- HTTPBearer: []
+tags:
+- name: Numbers
+paths:
+  /numbers/buy:
+    post:
+      operationId: buyNumber
+      tags:
+      - Numbers
+      summary: Buy a phone number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuyPhoneNumberRequest'
+      responses:
+        '200':
+          description: The provisioned phone number.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneNumber'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /numbers:
+    get:
+      operationId: getNumber
+      tags:
+      - Numbers
+      summary: Get a phone number
+      parameters:
+      - name: phone_number
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The requested phone number.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneNumber'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /numbers/list:
+    get:
+      operationId: listNumbers
+      tags:
+      - Numbers
+      summary: List phone numbers
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: A paginated page of phone numbers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneNumberPage'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /numbers/update:
+    post:
+      operationId: updateNumber
+      tags:
+      - Numbers
+      summary: Update a phone number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateNumberRequest'
+      responses:
+        '200':
+          description: The updated phone number.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneNumber'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /numbers/cancel:
+    post:
+      operationId: cancelNumber
+      tags:
+      - Numbers
+      summary: Cancel a phone number
+      parameters:
+      - name: phone_number
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The cancelled phone number.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneNumber'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /numbers/link:
+    post:
+      operationId: linkNumber
+      tags:
+      - Numbers
+      summary: Link a phone number
+      description: Links an externally owned (Twilio/Vonage) number to your Vocode account via an account connection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkPhoneNumberRequest'
+      responses:
+        '200':
+          description: The linked phone number.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneNumber'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  schemas:
+    PhoneNumber:
+      type: object
+      required:
+      - id
+      - user_id
+      - number
+      - telephony_provider
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        active:
+          type: boolean
+        label:
+          type: string
+        inbound_agent:
+          type: string
+          format: uuid
+          nullable: true
+        outbound_only:
+          type: boolean
+        number:
+          type: string
+        telephony_provider:
+          type: string
+          enum:
+          - vonage
+          - twilio
+    BuyPhoneNumberRequest:
+      type: object
+      properties:
+        area_code:
+          type: string
+        telephony_provider:
+          type: string
+          enum:
+          - vonage
+          - twilio
+    ValidationError:
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      properties:
+        loc:
+          type: array
+          items:
+            type: string
+        msg:
+          type: string
+        type:
+          type: string
+    PhoneNumberPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    UpdateNumberRequest:
+      type: object
+      required:
+      - phone_number
+      properties:
+        phone_number:
+          type: string
+        label:
+          type: string
+        inbound_agent:
+          type: string
+          format: uuid
+        outbound_only:
+          type: boolean
+    LinkPhoneNumberRequest:
+      type: object
+      required:
+      - telephony_account_connection
+      - phone_number
+      properties:
+        telephony_account_connection:
+          type: string
+          format: uuid
+        phone_number:
+          type: string
+  parameters:
+    Size:
+      name: size
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 10
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+  responses:
+    ValidationError:
+      description: Validation error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPValidationError'
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

@@ -1,0 +1,207 @@
+openapi: 3.0.1
+info:
+  title: Vocode Hosted Actions Voices API
+  description: Hosted REST API for the Vocode voice AI platform. Place and manage outbound and inbound phone calls driven by configurable voice agents, and manage the agents, voices, prompts, actions, phone numbers, and webhooks that power them. All requests are authenticated with a Bearer API key. This specification covers the hosted API and is distinct from the open-source vocode-core Python library.
+  termsOfService: https://www.vocode.dev
+  contact:
+    name: Vocode Support
+    url: https://docs.vocode.dev
+  version: 1.0.0
+servers:
+- url: https://api.vocode.dev/v1
+  description: Production environment
+security:
+- HTTPBearer: []
+tags:
+- name: Voices
+paths:
+  /voices/create:
+    post:
+      operationId: createVoice
+      tags:
+      - Voices
+      summary: Create a voice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VoiceParams'
+      responses:
+        '200':
+          description: The created voice.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voice'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /voices:
+    get:
+      operationId: getVoice
+      tags:
+      - Voices
+      summary: Get a voice
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: The requested voice.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voice'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /voices/list:
+    get:
+      operationId: listVoices
+      tags:
+      - Voices
+      summary: List voices
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: A paginated page of voices.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoicePage'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /voices/update:
+    post:
+      operationId: updateVoice
+      tags:
+      - Voices
+      summary: Update a voice
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VoiceParams'
+      responses:
+        '200':
+          description: The updated voice.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voice'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  schemas:
+    Voice:
+      type: object
+      required:
+      - id
+      - user_id
+      - type
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum:
+          - voice_eleven_labs
+          - voice_azure
+          - voice_play_ht
+          - voice_rime
+          - voice_vocode
+        voice_id:
+          type: string
+    ValidationError:
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      properties:
+        loc:
+          type: array
+          items:
+            type: string
+        msg:
+          type: string
+        type:
+          type: string
+    VoicePage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Voice'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    VoiceParams:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - voice_eleven_labs
+          - voice_azure
+          - voice_play_ht
+          - voice_rime
+          - voice_vocode
+        voice_id:
+          type: string
+  parameters:
+    Size:
+      name: size
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 10
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+  responses:
+    ValidationError:
+      description: Validation error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPValidationError'
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

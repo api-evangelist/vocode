@@ -1,0 +1,391 @@
+openapi: 3.0.1
+info:
+  title: Vocode Hosted Actions Calls API
+  description: Hosted REST API for the Vocode voice AI platform. Place and manage outbound and inbound phone calls driven by configurable voice agents, and manage the agents, voices, prompts, actions, phone numbers, and webhooks that power them. All requests are authenticated with a Bearer API key. This specification covers the hosted API and is distinct from the open-source vocode-core Python library.
+  termsOfService: https://www.vocode.dev
+  contact:
+    name: Vocode Support
+    url: https://docs.vocode.dev
+  version: 1.0.0
+servers:
+- url: https://api.vocode.dev/v1
+  description: Production environment
+security:
+- HTTPBearer: []
+tags:
+- name: Calls
+paths:
+  /calls/create:
+    post:
+      operationId: createCall
+      tags:
+      - Calls
+      summary: Create an outbound call
+      description: Places an outbound phone call using the provided from/to numbers and an inline or saved agent.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCallRequest'
+      responses:
+        '200':
+          description: The created call.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Call'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /calls:
+    get:
+      operationId: getCall
+      tags:
+      - Calls
+      summary: Get a call
+      description: Retrieves a single call by id.
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: The requested call.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Call'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /calls/list:
+    get:
+      operationId: listCalls
+      tags:
+      - Calls
+      summary: List calls
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/Size'
+      - $ref: '#/components/parameters/SortColumn'
+      - $ref: '#/components/parameters/SortDesc'
+      responses:
+        '200':
+          description: A paginated page of calls.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CallPage'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /calls/end:
+    post:
+      operationId: endCall
+      tags:
+      - Calls
+      summary: End a call
+      description: Ends an active call by id.
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: The ended call.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Call'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /calls/recording:
+    get:
+      operationId: getRecording
+      tags:
+      - Calls
+      summary: Get a call recording
+      description: Downloads the audio recording for a completed call.
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: The call recording audio.
+          content:
+            audio/wav:
+              schema:
+                type: string
+                format: binary
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  schemas:
+    CallPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Call'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
+    CallStatus:
+      type: string
+      enum:
+      - not_started
+      - in_progress
+      - error
+      - ended
+    ValidationError:
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      properties:
+        loc:
+          type: array
+          items:
+            type: string
+        msg:
+          type: string
+        type:
+          type: string
+    Call:
+      type: object
+      required:
+      - id
+      - user_id
+      - status
+      - to_number
+      - from_number
+      - agent
+      - telephony_provider
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        status:
+          $ref: '#/components/schemas/CallStatus'
+        to_number:
+          type: string
+        from_number:
+          type: string
+        agent:
+          $ref: '#/components/schemas/Agent'
+        telephony_provider:
+          type: string
+          enum:
+          - vonage
+          - twilio
+        agent_phone_number:
+          type: string
+        transcript:
+          type: string
+          nullable: true
+        error_message:
+          type: string
+          nullable: true
+        recording_available:
+          type: boolean
+        human_detection_result:
+          type: string
+          nullable: true
+        do_not_call_result:
+          type: boolean
+          nullable: true
+        stage:
+          type: string
+          nullable: true
+        stage_outcome:
+          type: string
+          nullable: true
+        start_time:
+          type: string
+          nullable: true
+        end_time:
+          type: string
+          nullable: true
+        hipaa_compliant:
+          type: boolean
+    CreateCallRequest:
+      type: object
+      required:
+      - from_number
+      - to_number
+      - agent
+      properties:
+        from_number:
+          type: string
+          description: The phone number to place the call from (must be owned or linked).
+        to_number:
+          type: string
+          description: The destination phone number to dial.
+        agent:
+          description: A saved agent id (UUID) or an inline agent configuration.
+          oneOf:
+          - type: string
+            format: uuid
+          - $ref: '#/components/schemas/AgentParams'
+        on_no_human_answer:
+          type: string
+          enum:
+          - continue
+          - hangup
+          default: continue
+        run_do_not_call_detection:
+          type: boolean
+          nullable: true
+        hipaa_compliant:
+          type: boolean
+          default: false
+        context:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        telephony_params:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+    AgentParams:
+      type: object
+      required:
+      - prompt
+      properties:
+        name:
+          type: string
+        prompt:
+          type: string
+        language:
+          type: string
+        voice:
+          type: string
+          format: uuid
+        initial_message:
+          type: string
+        webhook:
+          type: string
+          format: uuid
+        vector_database:
+          type: string
+          format: uuid
+        interrupt_sensitivity:
+          type: string
+          enum:
+          - low
+          - high
+        actions:
+          type: array
+          items:
+            type: string
+            format: uuid
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    Agent:
+      type: object
+      required:
+      - id
+      - user_id
+      - prompt
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+        prompt:
+          description: A prompt id (UUID) or inline prompt configuration.
+          type: string
+        language:
+          type: string
+        voice:
+          type: string
+          format: uuid
+          nullable: true
+        initial_message:
+          type: string
+          nullable: true
+        webhook:
+          type: string
+          format: uuid
+          nullable: true
+        vector_database:
+          type: string
+          format: uuid
+          nullable: true
+        interrupt_sensitivity:
+          type: string
+          enum:
+          - low
+          - high
+          nullable: true
+        actions:
+          type: array
+          items:
+            type: string
+            format: uuid
+  parameters:
+    SortColumn:
+      name: sort_column
+      in: query
+      required: false
+      schema:
+        type: string
+    SortDesc:
+      name: sort_desc
+      in: query
+      required: false
+      schema:
+        type: boolean
+    Size:
+      name: size
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 10
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+  responses:
+    ValidationError:
+      description: Validation error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPValidationError'
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

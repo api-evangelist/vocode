@@ -1,0 +1,26 @@
+{
+  "provider": "vocode",
+  "sources": [
+    "vocode-actions-api-openapi.yml",
+    "vocode-agents-api-openapi.yml",
+    "vocode-calls-api-openapi.yml",
+    "vocode-numbers-api-openapi.yml",
+    "vocode-usage-api-openapi.yml",
+    "vocode-voices-api-openapi.yml",
+    "vocode-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "vocode-actions-api-openapi.yml",
+    "vocode-agents-api-openapi.yml",
+    "vocode-calls-api-openapi.yml",
+    "vocode-numbers-api-openapi.yml",
+    "vocode-usage-api-openapi.yml",
+    "vocode-voices-api-openapi.yml",
+    "vocode-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

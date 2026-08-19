@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Vocode Hosted Actions Calls API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Calls",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an outbound call",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/calls/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Places an outbound phone call using the provided from/to numbers and an inline or saved agent."
+        },
+        {
+          "info": {
+            "name": "Get a call",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/calls",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves a single call by id."
+        },
+        {
+          "info": {
+            "name": "List calls",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/calls/list",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_column",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_desc",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List calls"
+        },
+        {
+          "info": {
+            "name": "End a call",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/calls/end",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Ends an active call by id."
+        },
+        {
+          "info": {
+            "name": "Get a call recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/calls/recording",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Downloads the audio recording for a completed call."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

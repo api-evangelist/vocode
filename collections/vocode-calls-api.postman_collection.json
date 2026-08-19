@@ -1,0 +1,790 @@
+{
+  "item": [
+    {
+      "id": "08e77d02-0ab8-459f-9669-8f25a2af5b24",
+      "name": "Calls",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "677e9aa6-dc33-44c5-ba1c-dc4cbdb917cd",
+          "name": "Create an outbound call",
+          "request": {
+            "name": "Create an outbound call",
+            "description": {
+              "content": "Places an outbound phone call using the provided from/to numbers and an inline or saved agent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "calls",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from_number\": \"<string>\",\n  \"to_number\": \"<string>\",\n  \"agent\": \"<uuid>\",\n  \"on_no_human_answer\": \"continue\",\n  \"run_do_not_call_detection\": \"<boolean>\",\n  \"hipaa_compliant\": false,\n  \"context\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"telephony_params\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0d566b76-1f82-4f48-85ec-6a21e65bcb3e",
+              "name": "The created call.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from_number\": \"<string>\",\n  \"to_number\": \"<string>\",\n  \"agent\": \"<uuid>\",\n  \"on_no_human_answer\": \"continue\",\n  \"run_do_not_call_detection\": \"<boolean>\",\n  \"hipaa_compliant\": false,\n  \"context\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\",\n    \"key_4\": \"<string>\"\n  },\n  \"telephony_params\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"a7c57861-e2dc-038d-550f-60460d9b2803\",\n  \"user_id\": \"916d5939-d7d7-b5f6-68ac-a67e58a13bae\",\n  \"status\": \"not_started\",\n  \"to_number\": \"string\",\n  \"from_number\": \"string\",\n  \"agent\": {\n    \"id\": \"0e4702f7-3052-ca47-dba1-020934798772\",\n    \"user_id\": \"33c0c109-c37a-8687-2156-caa51d12332f\",\n    \"prompt\": \"string\",\n    \"name\": \"string\",\n    \"language\": \"string\",\n    \"voice\": \"834ff4e1-bd4e-12d5-8b3f-91be188ddc40\",\n    \"initial_message\": \"string\",\n    \"webhook\": \"6754b502-a88d-9e0a-11b6-c4554d2a0e4d\",\n    \"vector_database\": \"f07c322e-a408-7ddf-6ed5-d00fee2833e1\",\n    \"interrupt_sensitivity\": \"low\",\n    \"actions\": [\n      \"4e2b0189-7d5e-577c-babb-b26574a60554\",\n      \"6e742ace-9554-91b9-d19a-69c9a7f14dca\"\n    ]\n  },\n  \"telephony_provider\": \"vonage\",\n  \"agent_phone_number\": \"string\",\n  \"transcript\": \"string\",\n  \"error_message\": \"string\",\n  \"recording_available\": true,\n  \"human_detection_result\": \"string\",\n  \"do_not_call_result\": false,\n  \"stage\": \"string\",\n  \"stage_outcome\": \"string\",\n  \"start_time\": \"string\",\n  \"end_time\": \"string\",\n  \"hipaa_compliant\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "646c330b-0b7d-41d9-adde-99768ef286a5",
+              "name": "Validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from_number\": \"<string>\",\n  \"to_number\": \"<string>\",\n  \"agent\": \"<uuid>\",\n  \"on_no_human_answer\": \"continue\",\n  \"run_do_not_call_detection\": \"<boolean>\",\n  \"hipaa_compliant\": false,\n  \"context\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\",\n    \"key_4\": \"<string>\"\n  },\n  \"telephony_params\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f3300d79-bc52-4fc3-a6ce-b61372ddeed7",
+          "name": "Get a call",
+          "request": {
+            "name": "Get a call",
+            "description": {
+              "content": "Retrieves a single call by id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "calls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<uuid>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fec23406-d3dc-430c-bff3-8e57f7eeb5c4",
+              "name": "The requested call.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"ab437cc3-7f06-3096-62d8-936ee9d4dd97\",\n  \"user_id\": \"fcce515d-8771-4c0a-a56f-fe66cace5042\",\n  \"status\": \"error\",\n  \"to_number\": \"string\",\n  \"from_number\": \"string\",\n  \"agent\": {\n    \"id\": \"a35440ed-2bce-aa64-0b3f-efe083d8c15a\",\n    \"user_id\": \"fd4799d2-30b1-00cf-4b8e-fe166285f12d\",\n    \"prompt\": \"string\",\n    \"name\": \"string\",\n    \"language\": \"string\",\n    \"voice\": \"d7ea7969-a5a5-3fee-8597-cab6c6340ed3\",\n    \"initial_message\": \"string\",\n    \"webhook\": \"b75e8ce2-5069-ba1f-31c4-c3996b2456db\",\n    \"vector_database\": \"f937718d-2f9a-7227-4c98-0e75ac654c17\",\n    \"interrupt_sensitivity\": \"high\",\n    \"actions\": [\n      \"3d83838e-c869-e02f-7bce-b43bbdce9640\",\n      \"69a392ef-5d75-427c-e0a6-404f1d897774\"\n    ]\n  },\n  \"telephony_provider\": \"vonage\",\n  \"agent_phone_number\": \"string\",\n  \"transcript\": \"string\",\n  \"error_message\": \"string\",\n  \"recording_available\": false,\n  \"human_detection_result\": \"string\",\n  \"do_not_call_result\": true,\n  \"stage\": \"string\",\n  \"stage_outcome\": \"string\",\n  \"start_time\": \"string\",\n  \"end_time\": \"string\",\n  \"hipaa_compliant\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f757f974-e4f5-49ab-8ff0-ba676b0216d8",
+              "name": "Validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ec1a228-5a45-45fd-b0d1-f047951c3408",
+          "name": "List calls",
+          "request": {
+            "name": "List calls",
+            "description": {},
+            "url": {
+              "path": [
+                "calls",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "10"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_column",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_desc",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8cb65909-87db-4b1b-931b-76fc32f70ae8",
+              "name": "A paginated page of calls.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_column",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_desc",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"e27667ed-2594-3c73-02ef-4e4eadac1c96\",\n      \"user_id\": \"f6adb879-4d62-3a1a-301e-f0e5472bdf05\",\n      \"status\": \"not_started\",\n      \"to_number\": \"string\",\n      \"from_number\": \"string\",\n      \"agent\": {\n        \"id\": \"8c2799bd-772e-3706-547e-4b7413b37c3b\",\n        \"user_id\": \"fb0c36a8-2c93-59ce-5f1c-85ae72c00b6e\",\n        \"prompt\": \"string\",\n        \"name\": \"string\",\n        \"language\": \"string\",\n        \"voice\": \"976400f7-9c7c-3a75-a5e6-1d5dce2f242c\",\n        \"initial_message\": \"string\",\n        \"webhook\": \"59bb01d8-ff31-ce7d-bc11-15798831bfc7\",\n        \"vector_database\": \"384cd322-f78e-fdbf-70e7-b59bbaf6977b\",\n        \"interrupt_sensitivity\": \"high\",\n        \"actions\": [\n          \"cda1521e-7f69-6067-7dea-036ca57a3b60\",\n          \"4ccd8ade-94bf-d367-9087-ac0f2a58813e\"\n        ]\n      },\n      \"telephony_provider\": \"twilio\",\n      \"agent_phone_number\": \"string\",\n      \"transcript\": \"string\",\n      \"error_message\": \"string\",\n      \"recording_available\": true,\n      \"human_detection_result\": \"string\",\n      \"do_not_call_result\": true,\n      \"stage\": \"string\",\n      \"stage_outcome\": \"string\",\n      \"start_time\": \"string\",\n      \"end_time\": \"string\",\n      \"hipaa_compliant\": false\n    },\n    {\n      \"id\": \"09cc5fb8-d074-2525-b7f4-fe5860357484\",\n      \"user_id\": \"933132ac-45a8-854f-1ba8-90f13f39b2c8\",\n      \"status\": \"in_progress\",\n      \"to_number\": \"string\",\n      \"from_number\": \"string\",\n      \"agent\": {\n        \"id\": \"ca0683f3-c3a0-9939-7c32-3dc7e83e745a\",\n        \"user_id\": \"a376bc02-4833-133f-c8bf-5287ac041ec0\",\n        \"prompt\": \"string\",\n        \"name\": \"string\",\n        \"language\": \"string\",\n        \"voice\": \"a8123b21-4ab4-647b-7fe5-4e6a4a7e1b6b\",\n        \"initial_message\": \"string\",\n        \"webhook\": \"91c91f0d-7249-970c-1b91-f75bfc68f7d1\",\n        \"vector_database\": \"b445d898-93aa-0a49-da03-ab475f93b170\",\n        \"interrupt_sensitivity\": \"low\",\n        \"actions\": [\n          \"51f35d12-b654-0a99-e283-4c5d42072a94\",\n          \"d8591eaf-f61a-950b-d4b7-1414f4046141\"\n        ]\n      },\n      \"telephony_provider\": \"vonage\",\n      \"agent_phone_number\": \"string\",\n      \"transcript\": \"string\",\n      \"error_message\": \"string\",\n      \"recording_available\": false,\n      \"human_detection_result\": \"string\",\n      \"do_not_call_result\": true,\n      \"stage\": \"string\",\n      \"stage_outcome\": \"string\",\n      \"start_time\": \"string\",\n      \"end_time\": \"string\",\n      \"hipaa_compliant\": false\n    }\n  ],\n  \"page\": 8337,\n  \"size\": 3934,\n  \"total\": 4603\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27327a00-e95e-403e-afb5-f9522532e23a",
+              "name": "Validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_column",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_desc",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c3f6f2f7-b9cd-4631-9d22-e19e6d825b46",
+          "name": "End a call",
+          "request": {
+            "name": "End a call",
+            "description": {
+              "content": "Ends an active call by id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "calls",
+                "end"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<uuid>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5d066c15-f9c3-4542-a8a2-f9182bb669ac",
+              "name": "The ended call.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls",
+                    "end"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"ab437cc3-7f06-3096-62d8-936ee9d4dd97\",\n  \"user_id\": \"fcce515d-8771-4c0a-a56f-fe66cace5042\",\n  \"status\": \"error\",\n  \"to_number\": \"string\",\n  \"from_number\": \"string\",\n  \"agent\": {\n    \"id\": \"a35440ed-2bce-aa64-0b3f-efe083d8c15a\",\n    \"user_id\": \"fd4799d2-30b1-00cf-4b8e-fe166285f12d\",\n    \"prompt\": \"string\",\n    \"name\": \"string\",\n    \"language\": \"string\",\n    \"voice\": \"d7ea7969-a5a5-3fee-8597-cab6c6340ed3\",\n    \"initial_message\": \"string\",\n    \"webhook\": \"b75e8ce2-5069-ba1f-31c4-c3996b2456db\",\n    \"vector_database\": \"f937718d-2f9a-7227-4c98-0e75ac654c17\",\n    \"interrupt_sensitivity\": \"high\",\n    \"actions\": [\n      \"3d83838e-c869-e02f-7bce-b43bbdce9640\",\n      \"69a392ef-5d75-427c-e0a6-404f1d897774\"\n    ]\n  },\n  \"telephony_provider\": \"vonage\",\n  \"agent_phone_number\": \"string\",\n  \"transcript\": \"string\",\n  \"error_message\": \"string\",\n  \"recording_available\": false,\n  \"human_detection_result\": \"string\",\n  \"do_not_call_result\": true,\n  \"stage\": \"string\",\n  \"stage_outcome\": \"string\",\n  \"start_time\": \"string\",\n  \"end_time\": \"string\",\n  \"hipaa_compliant\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e803e36c-c71b-4d18-923d-b6167aa84f0a",
+              "name": "Validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls",
+                    "end"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2b28639-fc66-4ab5-b90b-91b7334e60cb",
+          "name": "Get a call recording",
+          "request": {
+            "name": "Get a call recording",
+            "description": {
+              "content": "Downloads the audio recording for a completed call.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "calls",
+                "recording"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<uuid>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "audio/wav"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cfa443bc-2517-4cde-ab3d-935dd0ebc475",
+              "name": "The call recording audio.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls",
+                    "recording"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "audio/wav"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "audio/wav"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8652ed30-5ed7-4546-916a-4bb02fed5ec4",
+              "name": "Validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls",
+                    "recording"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vocode.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c8571a00-9f36-41e9-84f6-b01465f07b92",
+    "name": "Vocode Hosted Actions Calls API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Hosted REST API for the Vocode voice AI platform. Place and manage outbound and inbound phone calls driven by configurable voice agents, and manage the agents, voices, prompts, actions, phone numbers, and webhooks that power them. All requests are authenticated with a Bearer API key. This specification covers the hosted API and is distinct from the open-source vocode-core Python library.\n\nContact Support:\n Name: Vocode Support",
+      "type": "text/plain"
+    }
+  }
+}

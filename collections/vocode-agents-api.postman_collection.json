@@ -1,0 +1,643 @@
+{
+  "item": [
+    {
+      "id": "4199c7d2-1add-4c36-829a-3e42a52e91e1",
+      "name": "Agents",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9ef66341-e42a-4b0a-a858-94482e07ebbb",
+          "name": "Create an agent",
+          "request": {
+            "name": "Create an agent",
+            "description": {},
+            "url": {
+              "path": [
+                "agents",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"<string>\",\n  \"name\": \"<string>\",\n  \"language\": \"<string>\",\n  \"voice\": \"<uuid>\",\n  \"initial_message\": \"<string>\",\n  \"webhook\": \"<uuid>\",\n  \"vector_database\": \"<uuid>\",\n  \"interrupt_sensitivity\": \"<string>\",\n  \"actions\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2adc6ca6-29fe-4c7e-8743-0fa938fbc764",
+              "name": "The created agent.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"name\": \"<string>\",\n  \"language\": \"<string>\",\n  \"voice\": \"<uuid>\",\n  \"initial_message\": \"<string>\",\n  \"webhook\": \"<uuid>\",\n  \"vector_database\": \"<uuid>\",\n  \"interrupt_sensitivity\": \"<string>\",\n  \"actions\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"90a3ee64-d6a4-fe73-a7ae-9cc2065f7f80\",\n  \"user_id\": \"1c505562-01b3-eef9-d19d-fa3bd434ad8f\",\n  \"prompt\": \"string\",\n  \"name\": \"string\",\n  \"language\": \"string\",\n  \"voice\": \"775ca377-294a-11b3-cdfc-2ef356b22988\",\n  \"initial_message\": \"string\",\n  \"webhook\": \"46c9acd5-be88-3dce-9840-25b04a1edfa8\",\n  \"vector_database\": \"d0c875de-9700-350c-2f0d-8836b4ff77fd\",\n  \"interrupt_sensitivity\": \"low\",\n  \"actions\": [\n    \"3cfea879-a6f3-8bc5-04ba-1f9d52740f2a\",\n    \"1c1d21bd-7e1e-01f4-3612-750f29c826c0\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9e69543-57a8-4aaf-b8fb-451bf3b3a2fd",
+              "name": "Validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"name\": \"<string>\",\n  \"language\": \"<string>\",\n  \"voice\": \"<uuid>\",\n  \"initial_message\": \"<string>\",\n  \"webhook\": \"<uuid>\",\n  \"vector_database\": \"<uuid>\",\n  \"interrupt_sensitivity\": \"<string>\",\n  \"actions\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "163031c4-c28b-4579-be06-3f1f6cb86fef",
+          "name": "Get an agent",
+          "request": {
+            "name": "Get an agent",
+            "description": {},
+            "url": {
+              "path": [
+                "agents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<uuid>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "54429ea0-5399-438c-b6f3-8f612e6d58b6",
+              "name": "The requested agent.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"8c646199-bf0f-5111-b5bb-1224916ccb62\",\n  \"user_id\": \"9f457a1e-042c-7c84-0a55-6c53b281e7af\",\n  \"prompt\": \"string\",\n  \"name\": \"string\",\n  \"language\": \"string\",\n  \"voice\": \"32c5279e-692c-c629-2026-c2b4a2acf894\",\n  \"initial_message\": \"string\",\n  \"webhook\": \"fec12b21-6887-9b8f-89dd-b8ce7b359a92\",\n  \"vector_database\": \"ad9529bb-6145-b19b-fdc5-619fefa48393\",\n  \"interrupt_sensitivity\": \"low\",\n  \"actions\": [\n    \"686e0cc1-95be-4ef4-f1b6-e5ad81e9da16\",\n    \"eadb3816-bcf0-8f52-8883-bc2c8caaed82\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e1067d9-ba74-4d5c-8197-5577e7ca4b68",
+              "name": "Validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "712c3e3a-5b47-4e37-999b-bbdb9679d2ef",
+          "name": "List agents",
+          "request": {
+            "name": "List agents",
+            "description": {},
+            "url": {
+              "path": [
+                "agents",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "10"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7ec675de-8baa-48d7-8e9c-fb01e13fa7bb",
+              "name": "A paginated page of agents.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"0f6d34ff-847d-5010-d26b-441d37dae8fb\",\n      \"user_id\": \"2c7d0750-2d35-95f1-14c6-ed02670285d3\",\n      \"prompt\": \"string\",\n      \"name\": \"string\",\n      \"language\": \"string\",\n      \"voice\": \"684ae010-7670-658b-8ea8-3017f8208493\",\n      \"initial_message\": \"string\",\n      \"webhook\": \"ded84552-a8c7-392b-4f2a-b2063502e25d\",\n      \"vector_database\": \"65fb7584-b867-6752-ebff-a291578f6685\",\n      \"interrupt_sensitivity\": \"high\",\n      \"actions\": [\n        \"57a009c1-d201-5373-e3f3-0df790fe2fff\",\n        \"ec10127a-1c7b-7472-0df2-382c424f5171\"\n      ]\n    },\n    {\n      \"id\": \"472575a6-034c-b9e5-b42d-3fc87736e8f5\",\n      \"user_id\": \"dbc73098-8125-ce56-acb1-805d754b4168\",\n      \"prompt\": \"string\",\n      \"name\": \"string\",\n      \"language\": \"string\",\n      \"voice\": \"2de3f1c8-42d0-48b8-2e22-56964c3517cf\",\n      \"initial_message\": \"string\",\n      \"webhook\": \"b6cb6dfc-1b5f-284b-4bc2-d95d9e76f0e5\",\n      \"vector_database\": \"de55c64c-a942-bf72-c94a-fce4d5f9fd91\",\n      \"interrupt_sensitivity\": \"low\",\n      \"actions\": [\n        \"4f7219b3-18b3-a755-7ae6-5953a5cb92a5\",\n        \"7aad4d53-ff73-453e-902c-920b58900247\"\n      ]\n    }\n  ],\n  \"page\": 9280,\n  \"size\": 717,\n  \"total\": 615\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2aaabef1-c406-4b84-95f4-a45f04ac4221",
+              "name": "Validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79fc91ad-e064-4596-aa45-358f823c3ec5",
+          "name": "Update an agent",
+          "request": {
+            "name": "Update an agent",
+            "description": {},
+            "url": {
+              "path": [
+                "agents",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<uuid>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"<string>\",\n  \"name\": \"<string>\",\n  \"language\": \"<string>\",\n  \"voice\": \"<uuid>\",\n  \"initial_message\": \"<string>\",\n  \"webhook\": \"<uuid>\",\n  \"vector_database\": \"<uuid>\",\n  \"interrupt_sensitivity\": \"<string>\",\n  \"actions\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "53774812-6c13-4743-8329-dc8a9804897b",
+              "name": "The updated agent.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"name\": \"<string>\",\n  \"language\": \"<string>\",\n  \"voice\": \"<uuid>\",\n  \"initial_message\": \"<string>\",\n  \"webhook\": \"<uuid>\",\n  \"vector_database\": \"<uuid>\",\n  \"interrupt_sensitivity\": \"<string>\",\n  \"actions\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"8c646199-bf0f-5111-b5bb-1224916ccb62\",\n  \"user_id\": \"9f457a1e-042c-7c84-0a55-6c53b281e7af\",\n  \"prompt\": \"string\",\n  \"name\": \"string\",\n  \"language\": \"string\",\n  \"voice\": \"32c5279e-692c-c629-2026-c2b4a2acf894\",\n  \"initial_message\": \"string\",\n  \"webhook\": \"fec12b21-6887-9b8f-89dd-b8ce7b359a92\",\n  \"vector_database\": \"ad9529bb-6145-b19b-fdc5-619fefa48393\",\n  \"interrupt_sensitivity\": \"low\",\n  \"actions\": [\n    \"686e0cc1-95be-4ef4-f1b6-e5ad81e9da16\",\n    \"eadb3816-bcf0-8f52-8883-bc2c8caaed82\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8c55939-14ad-409a-9cdb-cd0ef894e12c",
+              "name": "Validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"name\": \"<string>\",\n  \"language\": \"<string>\",\n  \"voice\": \"<uuid>\",\n  \"initial_message\": \"<string>\",\n  \"webhook\": \"<uuid>\",\n  \"vector_database\": \"<uuid>\",\n  \"interrupt_sensitivity\": \"<string>\",\n  \"actions\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vocode.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "63883171-3cc0-42da-9b02-a6fcc5d9d58a",
+    "name": "Vocode Hosted Actions Agents API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Hosted REST API for the Vocode voice AI platform. Place and manage outbound and inbound phone calls driven by configurable voice agents, and manage the agents, voices, prompts, actions, phone numbers, and webhooks that power them. All requests are authenticated with a Bearer API key. This specification covers the hosted API and is distinct from the open-source vocode-core Python library.\n\nContact Support:\n Name: Vocode Support",
+      "type": "text/plain"
+    }
+  }
+}

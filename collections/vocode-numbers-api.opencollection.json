@@ -1,0 +1,128 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Vocode Hosted Actions Numbers API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Numbers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Buy a phone number",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/numbers/buy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Buy a phone number"
+        },
+        {
+          "info": {
+            "name": "Get a phone number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/numbers",
+            "params": [
+              {
+                "name": "phone_number",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a phone number"
+        },
+        {
+          "info": {
+            "name": "List phone numbers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/numbers/list",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List phone numbers"
+        },
+        {
+          "info": {
+            "name": "Update a phone number",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/numbers/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a phone number"
+        },
+        {
+          "info": {
+            "name": "Cancel a phone number",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/numbers/cancel",
+            "params": [
+              {
+                "name": "phone_number",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Cancel a phone number"
+        },
+        {
+          "info": {
+            "name": "Link a phone number",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/numbers/link",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Links an externally owned (Twilio/Vonage) number to your Vocode account via an account connection."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

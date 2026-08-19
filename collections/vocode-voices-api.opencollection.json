@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Vocode Hosted Actions Voices API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Voices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a voice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/voices/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a voice"
+        },
+        {
+          "info": {
+            "name": "Get a voice",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/voices",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a voice"
+        },
+        {
+          "info": {
+            "name": "List voices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vocode.dev/v1/voices/list",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List voices"
+        },
+        {
+          "info": {
+            "name": "Update a voice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vocode.dev/v1/voices/update",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a voice"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

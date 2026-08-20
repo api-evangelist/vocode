@@ -34,6 +34,10 @@ apis:
 - aid: vocode:vocode-realtime-streaming
   name: Vocode Realtime Streaming Conversation
   tags:
+  - Real-Time
+  - Streaming
+  - WebSocket
+  tags_raw:
   - Realtime
   - Streaming
   - WebSocket
@@ -56,6 +60,11 @@ apis:
 - aid: vocode:vocode-oss-library
   name: Vocode Open Source Library
   tags:
+  - Open-Source
+  - Python
+  - Library
+  - SDK
+  tags_raw:
   - Open Source
   - Python
   - Library
@@ -318,6 +327,8 @@ apis:
   humanURL: https://docs.vocode.dev/api-reference/calls/create-call
   baseURL: https://api.vocode.dev/v1
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI

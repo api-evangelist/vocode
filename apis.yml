@@ -7,6 +7,18 @@ description: Vocode is an open-source Python library (vocode-core, MIT licensed)
   hosted REST API at https://api.vocode.dev/v1 (Bearer API key) for placing and managing
   outbound and inbound phone calls, configuring agents, voices, prompts, actions,
   phone numbers, and webhooks without operating the streaming infrastructure yourself.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve

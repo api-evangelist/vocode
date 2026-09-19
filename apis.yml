@@ -301,6 +301,8 @@ apis:
   humanURL: https://docs.vocode.dev/api-reference/calls/create-call
   baseURL: https://api.vocode.dev/v1
   tags:
+  - Voice
+  tags_raw:
   - Voices
   properties:
   - type: OpenAPI

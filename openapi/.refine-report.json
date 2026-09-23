@@ -1,13 +1,7 @@
 {
   "provider": "vocode",
   "sources": [
-    "vocode-actions-api-openapi.yml",
-    "vocode-agents-api-openapi.yml",
-    "vocode-calls-api-openapi.yml",
-    "vocode-numbers-api-openapi.yml",
-    "vocode-usage-api-openapi.yml",
-    "vocode-voices-api-openapi.yml",
-    "vocode-webhooks-api-openapi.yml"
+    "_original/vocode-openapi.yml"
   ],
   "outputs": [
     "vocode-actions-api-openapi.yml",
@@ -21,6 +15,18 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "vocode-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "vocode-actions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vocode-agents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vocode-calls-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vocode-numbers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vocode-usage-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vocode-voices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vocode-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

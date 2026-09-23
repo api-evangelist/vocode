@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vocode Hosted Actions Numbers API
+  title: Vocode Hosted Numbers API
   description: Hosted REST API for the Vocode voice AI platform. Place and manage outbound and inbound phone calls driven by configurable voice agents, and manage the agents, voices, prompts, actions, phone numbers, and webhooks that power them. All requests are authenticated with a Bearer API key. This specification covers the hosted API and is distinct from the open-source vocode-core Python library.
   termsOfService: https://www.vocode.dev
   contact:
@@ -141,6 +141,76 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   schemas:
+    UpdateNumberRequest:
+      type: object
+      required:
+      - phone_number
+      properties:
+        phone_number:
+          type: string
+        label:
+          type: string
+        inbound_agent:
+          type: string
+          format: uuid
+        outbound_only:
+          type: boolean
+    ValidationError:
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      properties:
+        loc:
+          type: array
+          items:
+            type: string
+        msg:
+          type: string
+        type:
+          type: string
+    LinkPhoneNumberRequest:
+      type: object
+      required:
+      - telephony_account_connection
+      - phone_number
+      properties:
+        telephony_account_connection:
+          type: string
+          format: uuid
+        phone_number:
+          type: string
+    BuyPhoneNumberRequest:
+      type: object
+      properties:
+        area_code:
+          type: string
+        telephony_provider:
+          type: string
+          enum:
+          - vonage
+          - twilio
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    PhoneNumberPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
     PhoneNumber:
       type: object
       required:
@@ -160,9 +230,10 @@ components:
         label:
           type: string
         inbound_agent:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uuid
-          nullable: true
         outbound_only:
           type: boolean
         number:
@@ -172,76 +243,6 @@ components:
           enum:
           - vonage
           - twilio
-    BuyPhoneNumberRequest:
-      type: object
-      properties:
-        area_code:
-          type: string
-        telephony_provider:
-          type: string
-          enum:
-          - vonage
-          - twilio
-    ValidationError:
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      properties:
-        loc:
-          type: array
-          items:
-            type: string
-        msg:
-          type: string
-        type:
-          type: string
-    PhoneNumberPage:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/PhoneNumber'
-        page:
-          type: integer
-        size:
-          type: integer
-        total:
-          type: integer
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-    UpdateNumberRequest:
-      type: object
-      required:
-      - phone_number
-      properties:
-        phone_number:
-          type: string
-        label:
-          type: string
-        inbound_agent:
-          type: string
-          format: uuid
-        outbound_only:
-          type: boolean
-    LinkPhoneNumberRequest:
-      type: object
-      required:
-      - telephony_account_connection
-      - phone_number
-      properties:
-        telephony_account_connection:
-          type: string
-          format: uuid
-        phone_number:
-          type: string
   parameters:
     Size:
       name: size

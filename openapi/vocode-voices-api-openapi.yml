@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vocode Hosted Actions Voices API
+  title: Vocode Hosted Voices API
   description: Hosted REST API for the Vocode voice AI platform. Place and manage outbound and inbound phone calls driven by configurable voice agents, and manage the agents, voices, prompts, actions, phone numbers, and webhooks that power them. All requests are authenticated with a Bearer API key. This specification covers the hosted API and is distinct from the open-source vocode-core Python library.
   termsOfService: https://www.vocode.dev
   contact:
@@ -144,26 +144,6 @@ components:
           type: string
         type:
           type: string
-    VoicePage:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Voice'
-        page:
-          type: integer
-        size:
-          type: integer
-        total:
-          type: integer
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
     VoiceParams:
       type: object
       required:
@@ -179,6 +159,26 @@ components:
           - voice_vocode
         voice_id:
           type: string
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    VoicePage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Voice'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
   parameters:
     Size:
       name: size

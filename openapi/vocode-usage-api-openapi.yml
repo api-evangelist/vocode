@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vocode Hosted Actions Usage API
+  title: Vocode Hosted Usage API
   description: Hosted REST API for the Vocode voice AI platform. Place and manage outbound and inbound phone calls driven by configurable voice agents, and manage the agents, voices, prompts, actions, phone numbers, and webhooks that power them. All requests are authenticated with a Bearer API key. This specification covers the hosted API and is distinct from the open-source vocode-core Python library.
   termsOfService: https://www.vocode.dev
   contact:
@@ -46,8 +46,9 @@ components:
         monthly_usage_minutes:
           type: integer
         monthly_usage_limit_minutes:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
     PlanType:
       type: string
       enum:

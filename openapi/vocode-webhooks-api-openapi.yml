@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vocode Hosted Actions Webhooks API
+  title: Vocode Hosted Webhooks API
   description: Hosted REST API for the Vocode voice AI platform. Place and manage outbound and inbound phone calls driven by configurable voice agents, and manage the agents, voices, prompts, actions, phone numbers, and webhooks that power them. All requests are authenticated with a Bearer API key. This specification covers the hosted API and is distinct from the open-source vocode-core Python library.
   termsOfService: https://www.vocode.dev
   contact:
@@ -105,22 +105,18 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationError'
 components:
-  parameters:
-    Size:
-      name: size
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 10
-    Page:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 1
   schemas:
+    EventType:
+      type: string
+      enum:
+      - event_message
+      - event_action
+      - event_phone_call_connected
+      - event_phone_call_ended
+      - event_phone_call_did_not_connect
+      - event_transcript
+      - event_recording
+      - event_human_detection
     ValidationError:
       type: object
       required:
@@ -136,19 +132,13 @@ components:
           type: string
         type:
           type: string
-    WebhookPage:
+    HTTPValidationError:
       type: object
       properties:
-        items:
+        detail:
           type: array
           items:
-            $ref: '#/components/schemas/Webhook'
-        page:
-          type: integer
-        size:
-          type: integer
-        total:
-          type: integer
+            $ref: '#/components/schemas/ValidationError'
     Webhook:
       type: object
       required:
@@ -175,24 +165,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EventType'
-    HTTPValidationError:
+    WebhookPage:
       type: object
       properties:
-        detail:
+        items:
           type: array
           items:
-            $ref: '#/components/schemas/ValidationError'
-    EventType:
-      type: string
-      enum:
-      - event_message
-      - event_action
-      - event_phone_call_connected
-      - event_phone_call_ended
-      - event_phone_call_did_not_connect
-      - event_transcript
-      - event_recording
-      - event_human_detection
+            $ref: '#/components/schemas/Webhook'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
     WebhookParams:
       type: object
       required:
@@ -211,6 +196,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EventType'
+  parameters:
+    Size:
+      name: size
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 10
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
   responses:
     ValidationError:
       description: Validation error.

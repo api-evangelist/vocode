@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vocode Hosted Actions Calls API
+  title: Vocode Hosted Calls API
   description: Hosted REST API for the Vocode voice AI platform. Place and manage outbound and inbound phone calls driven by configurable voice agents, and manage the agents, voices, prompts, actions, phone numbers, and webhooks that power them. All requests are authenticated with a Bearer API key. This specification covers the hosted API and is distinct from the open-source vocode-core Python library.
   termsOfService: https://www.vocode.dev
   contact:
@@ -128,42 +128,34 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationError'
 components:
+  parameters:
+    SortDesc:
+      name: sort_desc
+      in: query
+      required: false
+      schema:
+        type: boolean
+    Size:
+      name: size
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 10
+    SortColumn:
+      name: sort_column
+      in: query
+      required: false
+      schema:
+        type: string
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
   schemas:
-    CallPage:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Call'
-        page:
-          type: integer
-        size:
-          type: integer
-        total:
-          type: integer
-    CallStatus:
-      type: string
-      enum:
-      - not_started
-      - in_progress
-      - error
-      - ended
-    ValidationError:
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      properties:
-        loc:
-          type: array
-          items:
-            type: string
-        msg:
-          type: string
-        type:
-          type: string
     Call:
       type: object
       required:
@@ -197,31 +189,39 @@ components:
         agent_phone_number:
           type: string
         transcript:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         error_message:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         recording_available:
           type: boolean
         human_detection_result:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         do_not_call_result:
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
         stage:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         stage_outcome:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         start_time:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         end_time:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         hipaa_compliant:
           type: boolean
     CreateCallRequest:
@@ -250,21 +250,53 @@ components:
           - hangup
           default: continue
         run_do_not_call_detection:
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
         hipaa_compliant:
           type: boolean
           default: false
         context:
-          type: object
+          type:
+          - object
+          - 'null'
           additionalProperties:
             type: string
-          nullable: true
         telephony_params:
-          type: object
+          type:
+          - object
+          - 'null'
           additionalProperties:
             type: string
-          nullable: true
+    ValidationError:
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      properties:
+        loc:
+          type: array
+          items:
+            type: string
+        msg:
+          type: string
+        type:
+          type: string
+    CallStatus:
+      type: string
+      enum:
+      - not_started
+      - in_progress
+      - error
+      - ended
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
     AgentParams:
       type: object
       required:
@@ -297,13 +329,6 @@ components:
           items:
             type: string
             format: uuid
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
     Agent:
       type: object
       required:
@@ -318,66 +343,58 @@ components:
           type: string
           format: uuid
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         prompt:
           description: A prompt id (UUID) or inline prompt configuration.
           type: string
         language:
           type: string
         voice:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uuid
-          nullable: true
         initial_message:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         webhook:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uuid
-          nullable: true
         vector_database:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uuid
-          nullable: true
         interrupt_sensitivity:
-          type: string
+          type:
+          - string
+          - 'null'
           enum:
           - low
           - high
-          nullable: true
         actions:
           type: array
           items:
             type: string
             format: uuid
-  parameters:
-    SortColumn:
-      name: sort_column
-      in: query
-      required: false
-      schema:
-        type: string
-    SortDesc:
-      name: sort_desc
-      in: query
-      required: false
-      schema:
-        type: boolean
-    Size:
-      name: size
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 10
-    Page:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 1
+    CallPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Call'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
   responses:
     ValidationError:
       description: Validation error.

@@ -106,6 +106,34 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   schemas:
+    VoiceParams:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - voice_eleven_labs
+          - voice_azure
+          - voice_play_ht
+          - voice_rime
+          - voice_vocode
+        voice_id:
+          type: string
+    VoicePage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Voice'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
     Voice:
       type: object
       required:
@@ -144,21 +172,6 @@ components:
           type: string
         type:
           type: string
-    VoiceParams:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - voice_eleven_labs
-          - voice_azure
-          - voice_play_ht
-          - voice_rime
-          - voice_vocode
-        voice_id:
-          type: string
     HTTPValidationError:
       type: object
       properties:
@@ -166,19 +179,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
-    VoicePage:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Voice'
-        page:
-          type: integer
-        size:
-          type: integer
-        total:
-          type: integer
   parameters:
     Size:
       name: size

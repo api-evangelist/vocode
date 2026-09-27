@@ -8,16 +8,22 @@ description: Vocode is an open-source Python library (vocode-core, MIT licensed)
   outbound and inbound phone calls, configuring agents, voices, prompts, actions,
   phone numbers, and webhooks without operating the streaming infrastructure yourself.
 deliveryModel:
-  model: saas
-  open_source: false
+  model: open-core
+  license: MIT
+  license_evidence:
+    repo: vocodedev/vocode-core
+    spdx: MIT
+    stars: 3795
+  open_source: true
   commercial: true
   callable_host: false
-  label: Hosted service · you call their endpoint
+  label: Open core · an OSS project plus a commercial hosted product
   confidence: medium
   source:
   - openapi
   - pricing
-  generated: '2026-08-28'
+  - repository-license
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
@@ -74,7 +80,7 @@ apis:
 - aid: vocode:vocode-oss-library
   name: Vocode Open Source Library
   tags:
-  - Open-Source
+  - Open Source
   - Python
   - Library
   - SDK
@@ -83,6 +89,7 @@ apis:
   - Python
   - Library
   - SDK
+  - Open-Source
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.vocode.dev/open-source/what-is-vocode
   baseURL: https://github.com/vocodedev/vocode-core

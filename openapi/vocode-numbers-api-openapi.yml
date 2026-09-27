@@ -170,47 +170,6 @@ components:
           type: string
         type:
           type: string
-    LinkPhoneNumberRequest:
-      type: object
-      required:
-      - telephony_account_connection
-      - phone_number
-      properties:
-        telephony_account_connection:
-          type: string
-          format: uuid
-        phone_number:
-          type: string
-    BuyPhoneNumberRequest:
-      type: object
-      properties:
-        area_code:
-          type: string
-        telephony_provider:
-          type: string
-          enum:
-          - vonage
-          - twilio
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-    PhoneNumberPage:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/PhoneNumber'
-        page:
-          type: integer
-        size:
-          type: integer
-        total:
-          type: integer
     PhoneNumber:
       type: object
       required:
@@ -243,6 +202,47 @@ components:
           enum:
           - vonage
           - twilio
+    PhoneNumberPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    BuyPhoneNumberRequest:
+      type: object
+      properties:
+        area_code:
+          type: string
+        telephony_provider:
+          type: string
+          enum:
+          - vonage
+          - twilio
+    LinkPhoneNumberRequest:
+      type: object
+      required:
+      - telephony_account_connection
+      - phone_number
+      properties:
+        telephony_account_connection:
+          type: string
+          format: uuid
+        phone_number:
+          type: string
   parameters:
     Size:
       name: size

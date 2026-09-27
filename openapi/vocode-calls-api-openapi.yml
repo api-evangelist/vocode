@@ -128,34 +128,60 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationError'
 components:
-  parameters:
-    SortDesc:
-      name: sort_desc
-      in: query
-      required: false
-      schema:
-        type: boolean
-    Size:
-      name: size
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 10
-    SortColumn:
-      name: sort_column
-      in: query
-      required: false
-      schema:
-        type: string
-    Page:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 1
   schemas:
+    Agent:
+      type: object
+      required:
+      - id
+      - user_id
+      - prompt
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+        prompt:
+          description: A prompt id (UUID) or inline prompt configuration.
+          type: string
+        language:
+          type: string
+        voice:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        initial_message:
+          type:
+          - string
+          - 'null'
+        webhook:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        vector_database:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        interrupt_sensitivity:
+          type:
+          - string
+          - 'null'
+          enum:
+          - low
+          - high
+        actions:
+          type: array
+          items:
+            type: string
+            format: uuid
     Call:
       type: object
       required:
@@ -224,6 +250,80 @@ components:
           - 'null'
         hipaa_compliant:
           type: boolean
+    AgentParams:
+      type: object
+      required:
+      - prompt
+      properties:
+        name:
+          type: string
+        prompt:
+          type: string
+        language:
+          type: string
+        voice:
+          type: string
+          format: uuid
+        initial_message:
+          type: string
+        webhook:
+          type: string
+          format: uuid
+        vector_database:
+          type: string
+          format: uuid
+        interrupt_sensitivity:
+          type: string
+          enum:
+          - low
+          - high
+        actions:
+          type: array
+          items:
+            type: string
+            format: uuid
+    CallStatus:
+      type: string
+      enum:
+      - not_started
+      - in_progress
+      - error
+      - ended
+    ValidationError:
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      properties:
+        loc:
+          type: array
+          items:
+            type: string
+        msg:
+          type: string
+        type:
+          type: string
+    CallPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Call'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
     CreateCallRequest:
       type: object
       required:
@@ -268,133 +368,33 @@ components:
           - 'null'
           additionalProperties:
             type: string
-    ValidationError:
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      properties:
-        loc:
-          type: array
-          items:
-            type: string
-        msg:
-          type: string
-        type:
-          type: string
-    CallStatus:
-      type: string
-      enum:
-      - not_started
-      - in_progress
-      - error
-      - ended
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-    AgentParams:
-      type: object
-      required:
-      - prompt
-      properties:
-        name:
-          type: string
-        prompt:
-          type: string
-        language:
-          type: string
-        voice:
-          type: string
-          format: uuid
-        initial_message:
-          type: string
-        webhook:
-          type: string
-          format: uuid
-        vector_database:
-          type: string
-          format: uuid
-        interrupt_sensitivity:
-          type: string
-          enum:
-          - low
-          - high
-        actions:
-          type: array
-          items:
-            type: string
-            format: uuid
-    Agent:
-      type: object
-      required:
-      - id
-      - user_id
-      - prompt
-      properties:
-        id:
-          type: string
-          format: uuid
-        user_id:
-          type: string
-          format: uuid
-        name:
-          type:
-          - string
-          - 'null'
-        prompt:
-          description: A prompt id (UUID) or inline prompt configuration.
-          type: string
-        language:
-          type: string
-        voice:
-          type:
-          - string
-          - 'null'
-          format: uuid
-        initial_message:
-          type:
-          - string
-          - 'null'
-        webhook:
-          type:
-          - string
-          - 'null'
-          format: uuid
-        vector_database:
-          type:
-          - string
-          - 'null'
-          format: uuid
-        interrupt_sensitivity:
-          type:
-          - string
-          - 'null'
-          enum:
-          - low
-          - high
-        actions:
-          type: array
-          items:
-            type: string
-            format: uuid
-    CallPage:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Call'
-        page:
-          type: integer
-        size:
-          type: integer
-        total:
-          type: integer
+  parameters:
+    Size:
+      name: size
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 10
+    SortColumn:
+      name: sort_column
+      in: query
+      required: false
+      schema:
+        type: string
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+    SortDesc:
+      name: sort_desc
+      in: query
+      required: false
+      schema:
+        type: boolean
   responses:
     ValidationError:
       description: Validation error.

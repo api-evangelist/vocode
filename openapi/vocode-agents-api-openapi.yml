@@ -106,60 +106,19 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   schemas:
-    ValidationError:
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      properties:
-        loc:
-          type: array
-          items:
-            type: string
-        msg:
-          type: string
-        type:
-          type: string
-    HTTPValidationError:
+    AgentPage:
       type: object
       properties:
-        detail:
+        items:
           type: array
           items:
-            $ref: '#/components/schemas/ValidationError'
-    AgentParams:
-      type: object
-      required:
-      - prompt
-      properties:
-        name:
-          type: string
-        prompt:
-          type: string
-        language:
-          type: string
-        voice:
-          type: string
-          format: uuid
-        initial_message:
-          type: string
-        webhook:
-          type: string
-          format: uuid
-        vector_database:
-          type: string
-          format: uuid
-        interrupt_sensitivity:
-          type: string
-          enum:
-          - low
-          - high
-        actions:
-          type: array
-          items:
-            type: string
-            format: uuid
+            $ref: '#/components/schemas/Agent'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
     Agent:
       type: object
       required:
@@ -213,19 +172,60 @@ components:
           items:
             type: string
             format: uuid
-    AgentPage:
+    AgentParams:
       type: object
+      required:
+      - prompt
       properties:
-        items:
+        name:
+          type: string
+        prompt:
+          type: string
+        language:
+          type: string
+        voice:
+          type: string
+          format: uuid
+        initial_message:
+          type: string
+        webhook:
+          type: string
+          format: uuid
+        vector_database:
+          type: string
+          format: uuid
+        interrupt_sensitivity:
+          type: string
+          enum:
+          - low
+          - high
+        actions:
           type: array
           items:
-            $ref: '#/components/schemas/Agent'
-        page:
-          type: integer
-        size:
-          type: integer
-        total:
-          type: integer
+            type: string
+            format: uuid
+    ValidationError:
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      properties:
+        loc:
+          type: array
+          items:
+            type: string
+        msg:
+          type: string
+        type:
+          type: string
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
   parameters:
     Size:
       name: size

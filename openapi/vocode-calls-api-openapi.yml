@@ -128,7 +128,145 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationError'
 components:
+  parameters:
+    SortColumn:
+      name: sort_column
+      in: query
+      required: false
+      schema:
+        type: string
+    Size:
+      name: size
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 10
+    SortDesc:
+      name: sort_desc
+      in: query
+      required: false
+      schema:
+        type: boolean
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
   schemas:
+    ValidationError:
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      properties:
+        loc:
+          type: array
+          items:
+            type: string
+        msg:
+          type: string
+        type:
+          type: string
+    CreateCallRequest:
+      type: object
+      required:
+      - from_number
+      - to_number
+      - agent
+      properties:
+        from_number:
+          type: string
+          description: The phone number to place the call from (must be owned or linked).
+        to_number:
+          type: string
+          description: The destination phone number to dial.
+        agent:
+          description: A saved agent id (UUID) or an inline agent configuration.
+          oneOf:
+          - type: string
+            format: uuid
+          - $ref: '#/components/schemas/AgentParams'
+        on_no_human_answer:
+          type: string
+          enum:
+          - continue
+          - hangup
+          default: continue
+        run_do_not_call_detection:
+          type:
+          - boolean
+          - 'null'
+        hipaa_compliant:
+          type: boolean
+          default: false
+        context:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        telephony_params:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+    AgentParams:
+      type: object
+      required:
+      - prompt
+      properties:
+        name:
+          type: string
+        prompt:
+          type: string
+        language:
+          type: string
+        voice:
+          type: string
+          format: uuid
+        initial_message:
+          type: string
+        webhook:
+          type: string
+          format: uuid
+        vector_database:
+          type: string
+          format: uuid
+        interrupt_sensitivity:
+          type: string
+          enum:
+          - low
+          - high
+        actions:
+          type: array
+          items:
+            type: string
+            format: uuid
+    CallPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Call'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
     Agent:
       type: object
       required:
@@ -182,6 +320,13 @@ components:
           items:
             type: string
             format: uuid
+    CallStatus:
+      type: string
+      enum:
+      - not_started
+      - in_progress
+      - error
+      - ended
     Call:
       type: object
       required:
@@ -250,151 +395,6 @@ components:
           - 'null'
         hipaa_compliant:
           type: boolean
-    AgentParams:
-      type: object
-      required:
-      - prompt
-      properties:
-        name:
-          type: string
-        prompt:
-          type: string
-        language:
-          type: string
-        voice:
-          type: string
-          format: uuid
-        initial_message:
-          type: string
-        webhook:
-          type: string
-          format: uuid
-        vector_database:
-          type: string
-          format: uuid
-        interrupt_sensitivity:
-          type: string
-          enum:
-          - low
-          - high
-        actions:
-          type: array
-          items:
-            type: string
-            format: uuid
-    CallStatus:
-      type: string
-      enum:
-      - not_started
-      - in_progress
-      - error
-      - ended
-    ValidationError:
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      properties:
-        loc:
-          type: array
-          items:
-            type: string
-        msg:
-          type: string
-        type:
-          type: string
-    CallPage:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Call'
-        page:
-          type: integer
-        size:
-          type: integer
-        total:
-          type: integer
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-    CreateCallRequest:
-      type: object
-      required:
-      - from_number
-      - to_number
-      - agent
-      properties:
-        from_number:
-          type: string
-          description: The phone number to place the call from (must be owned or linked).
-        to_number:
-          type: string
-          description: The destination phone number to dial.
-        agent:
-          description: A saved agent id (UUID) or an inline agent configuration.
-          oneOf:
-          - type: string
-            format: uuid
-          - $ref: '#/components/schemas/AgentParams'
-        on_no_human_answer:
-          type: string
-          enum:
-          - continue
-          - hangup
-          default: continue
-        run_do_not_call_detection:
-          type:
-          - boolean
-          - 'null'
-        hipaa_compliant:
-          type: boolean
-          default: false
-        context:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: string
-        telephony_params:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: string
-  parameters:
-    Size:
-      name: size
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 10
-    SortColumn:
-      name: sort_column
-      in: query
-      required: false
-      schema:
-        type: string
-    Page:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 1
-    SortDesc:
-      name: sort_desc
-      in: query
-      required: false
-      schema:
-        type: boolean
   responses:
     ValidationError:
       description: Validation error.

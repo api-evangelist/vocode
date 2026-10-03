@@ -132,6 +132,32 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EventType'
+    ValidationError:
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      properties:
+        loc:
+          type: array
+          items:
+            type: string
+        msg:
+          type: string
+        type:
+          type: string
+    EventType:
+      type: string
+      enum:
+      - event_message
+      - event_action
+      - event_phone_call_connected
+      - event_phone_call_ended
+      - event_phone_call_did_not_connect
+      - event_transcript
+      - event_recording
+      - event_human_detection
     WebhookPage:
       type: object
       properties:
@@ -163,32 +189,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EventType'
-    ValidationError:
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      properties:
-        loc:
-          type: array
-          items:
-            type: string
-        msg:
-          type: string
-        type:
-          type: string
-    EventType:
-      type: string
-      enum:
-      - event_message
-      - event_action
-      - event_phone_call_connected
-      - event_phone_call_ended
-      - event_phone_call_did_not_connect
-      - event_transcript
-      - event_recording
-      - event_human_detection
     HTTPValidationError:
       type: object
       properties:

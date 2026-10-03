@@ -141,20 +141,16 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   schemas:
-    UpdateNumberRequest:
+    BuyPhoneNumberRequest:
       type: object
-      required:
-      - phone_number
       properties:
-        phone_number:
+        area_code:
           type: string
-        label:
+        telephony_provider:
           type: string
-        inbound_agent:
-          type: string
-          format: uuid
-        outbound_only:
-          type: boolean
+          enum:
+          - vonage
+          - twilio
     ValidationError:
       type: object
       required:
@@ -170,6 +166,40 @@ components:
           type: string
         type:
           type: string
+    PhoneNumberPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    UpdateNumberRequest:
+      type: object
+      required:
+      - phone_number
+      properties:
+        phone_number:
+          type: string
+        label:
+          type: string
+        inbound_agent:
+          type: string
+          format: uuid
+        outbound_only:
+          type: boolean
     PhoneNumber:
       type: object
       required:
@@ -196,36 +226,6 @@ components:
         outbound_only:
           type: boolean
         number:
-          type: string
-        telephony_provider:
-          type: string
-          enum:
-          - vonage
-          - twilio
-    PhoneNumberPage:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/PhoneNumber'
-        page:
-          type: integer
-        size:
-          type: integer
-        total:
-          type: integer
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-    BuyPhoneNumberRequest:
-      type: object
-      properties:
-        area_code:
           type: string
         telephony_provider:
           type: string

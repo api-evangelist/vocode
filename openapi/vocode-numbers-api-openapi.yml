@@ -141,6 +141,13 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
     BuyPhoneNumberRequest:
       type: object
       properties:
@@ -151,41 +158,6 @@ components:
           enum:
           - vonage
           - twilio
-    ValidationError:
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      properties:
-        loc:
-          type: array
-          items:
-            type: string
-        msg:
-          type: string
-        type:
-          type: string
-    PhoneNumberPage:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/PhoneNumber'
-        page:
-          type: integer
-        size:
-          type: integer
-        total:
-          type: integer
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
     UpdateNumberRequest:
       type: object
       required:
@@ -232,6 +204,34 @@ components:
           enum:
           - vonage
           - twilio
+    ValidationError:
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      properties:
+        loc:
+          type: array
+          items:
+            type: string
+        msg:
+          type: string
+        type:
+          type: string
+    PhoneNumberPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
     LinkPhoneNumberRequest:
       type: object
       required:
@@ -244,13 +244,6 @@ components:
         phone_number:
           type: string
   parameters:
-    Size:
-      name: size
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 10
     Page:
       name: page
       in: query
@@ -258,6 +251,13 @@ components:
       schema:
         type: integer
         default: 1
+    Size:
+      name: size
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 10
   responses:
     ValidationError:
       description: Validation error.

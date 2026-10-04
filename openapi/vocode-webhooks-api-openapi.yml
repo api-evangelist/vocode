@@ -106,6 +106,42 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    EventType:
+      type: string
+      enum:
+      - event_message
+      - event_action
+      - event_phone_call_connected
+      - event_phone_call_ended
+      - event_phone_call_did_not_connect
+      - event_transcript
+      - event_recording
+      - event_human_detection
+    WebhookParams:
+      type: object
+      required:
+      - url
+      - subscriptions
+      properties:
+        url:
+          type: string
+          format: uri
+        method:
+          type: string
+          enum:
+          - POST
+          - GET
+        subscriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventType'
     Webhook:
       type: object
       required:
@@ -132,6 +168,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EventType'
+    WebhookPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Webhook'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
     ValidationError:
       type: object
       required:
@@ -147,55 +196,6 @@ components:
           type: string
         type:
           type: string
-    EventType:
-      type: string
-      enum:
-      - event_message
-      - event_action
-      - event_phone_call_connected
-      - event_phone_call_ended
-      - event_phone_call_did_not_connect
-      - event_transcript
-      - event_recording
-      - event_human_detection
-    WebhookPage:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Webhook'
-        page:
-          type: integer
-        size:
-          type: integer
-        total:
-          type: integer
-    WebhookParams:
-      type: object
-      required:
-      - url
-      - subscriptions
-      properties:
-        url:
-          type: string
-          format: uri
-        method:
-          type: string
-          enum:
-          - POST
-          - GET
-        subscriptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventType'
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
   parameters:
     Size:
       name: size

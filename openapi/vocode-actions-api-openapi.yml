@@ -113,6 +113,34 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
+    ValidationError:
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      properties:
+        loc:
+          type: array
+          items:
+            type: string
+        msg:
+          type: string
+        type:
+          type: string
+    ActionPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Action'
+        page:
+          type: integer
+        size:
+          type: integer
+        total:
+          type: integer
     Action:
       type: object
       required:
@@ -153,34 +181,6 @@ components:
           - action_external
         config:
           type: object
-    ActionPage:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Action'
-        page:
-          type: integer
-        size:
-          type: integer
-        total:
-          type: integer
-    ValidationError:
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      properties:
-        loc:
-          type: array
-          items:
-            type: string
-        msg:
-          type: string
-        type:
-          type: string
   parameters:
     Page:
       name: page

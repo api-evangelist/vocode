@@ -113,6 +113,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
+    ValidationError:
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      properties:
+        loc:
+          type: array
+          items:
+            type: string
+        msg:
+          type: string
+        type:
+          type: string
     AgentParams:
       type: object
       required:
@@ -158,21 +173,6 @@ components:
           type: integer
         total:
           type: integer
-    ValidationError:
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      properties:
-        loc:
-          type: array
-          items:
-            type: string
-        msg:
-          type: string
-        type:
-          type: string
     Agent:
       type: object
       required:
@@ -227,13 +227,6 @@ components:
             type: string
             format: uuid
   parameters:
-    Page:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 1
     Size:
       name: size
       in: query
@@ -241,6 +234,13 @@ components:
       schema:
         type: integer
         default: 10
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
   responses:
     ValidationError:
       description: Validation error.

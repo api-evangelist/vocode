@@ -141,37 +141,6 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-    BuyPhoneNumberRequest:
-      type: object
-      properties:
-        area_code:
-          type: string
-        telephony_provider:
-          type: string
-          enum:
-          - vonage
-          - twilio
-    UpdateNumberRequest:
-      type: object
-      required:
-      - phone_number
-      properties:
-        phone_number:
-          type: string
-        label:
-          type: string
-        inbound_agent:
-          type: string
-          format: uuid
-        outbound_only:
-          type: boolean
     PhoneNumber:
       type: object
       required:
@@ -204,6 +173,27 @@ components:
           enum:
           - vonage
           - twilio
+    LinkPhoneNumberRequest:
+      type: object
+      required:
+      - telephony_account_connection
+      - phone_number
+      properties:
+        telephony_account_connection:
+          type: string
+          format: uuid
+        phone_number:
+          type: string
+    BuyPhoneNumberRequest:
+      type: object
+      properties:
+        area_code:
+          type: string
+        telephony_provider:
+          type: string
+          enum:
+          - vonage
+          - twilio
     ValidationError:
       type: object
       required:
@@ -219,6 +209,27 @@ components:
           type: string
         type:
           type: string
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    UpdateNumberRequest:
+      type: object
+      required:
+      - phone_number
+      properties:
+        phone_number:
+          type: string
+        label:
+          type: string
+        inbound_agent:
+          type: string
+          format: uuid
+        outbound_only:
+          type: boolean
     PhoneNumberPage:
       type: object
       properties:
@@ -232,25 +243,7 @@ components:
           type: integer
         total:
           type: integer
-    LinkPhoneNumberRequest:
-      type: object
-      required:
-      - telephony_account_connection
-      - phone_number
-      properties:
-        telephony_account_connection:
-          type: string
-          format: uuid
-        phone_number:
-          type: string
   parameters:
-    Page:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 1
     Size:
       name: size
       in: query
@@ -258,6 +251,13 @@ components:
       schema:
         type: integer
         default: 10
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
   responses:
     ValidationError:
       description: Validation error.
